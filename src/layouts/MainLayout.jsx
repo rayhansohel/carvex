@@ -9,11 +9,11 @@ const MainLayout = () => {
         {/* load navvar here*/}
         <Navbar />
       </div>
-      <div>
+      <div className="min-h-[calc(100vh-136px)] flex justify-center">
         {/* load pages here */}
         <Outlet />
       </div>
-      <div>
+      <div className="text-center bg-base-200 p-4">
         {/* load footer footer*/}
         <Footer />
       </div>
