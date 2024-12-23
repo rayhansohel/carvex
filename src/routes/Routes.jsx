@@ -13,6 +13,7 @@ import CarDetails from "../pages/CarDetails";
 import AuthLayout from "../layouts/AuthLayout";
 
 const Routes = createBrowserRouter([
+
   //Main route
   {
     path: "/",
@@ -62,21 +63,7 @@ const Routes = createBrowserRouter([
     ],
   },
 
-  //Auth route
-  {
-    path: "/auth",
-    element: <AuthLayout />,
-    children: [
-      {
-        path: "login",
-        element: <Login />,
-      },
-      {
-        path: "register",
-        element: <Register />,
-      },
-    ],
-  },
+
 ]);
 
 export default Routes;

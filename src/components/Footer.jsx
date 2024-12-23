@@ -2,7 +2,7 @@
 const Footer = () => {
     return (
         <div>
-            I ma footer
+            I am footer
         </div>
     );
 };
