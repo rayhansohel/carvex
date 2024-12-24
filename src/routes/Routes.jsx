@@ -18,7 +18,7 @@ const Routes = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
-    // errorElement: <Error404 />,
+    errorElement: <Error404 />,
     children: [
       {
         path: "/",
@@ -67,7 +67,7 @@ const Routes = createBrowserRouter([
   {
     path: "/auth",
     element: <AuthLayout />,
-    // errorElement: <Error404 />,
+    errorElement: <Error404 />,
     children: [
       {
         path: "login",

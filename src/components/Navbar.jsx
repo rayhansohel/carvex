@@ -2,7 +2,9 @@ import { Link, NavLink } from "react-router-dom";
 import { useContext } from "react";
 import defaultAvatar from "../assets/default-avatar.png";
 import { AuthContext } from "../contexts/AuthContext";
-import BrandLogo from "../assets/carvex-logo/caevex-text-logo-light.png";
+import ThemeContext  from "../contexts/ThemeContext";
+import BrandLogoLight from "../assets/carvex-logo/caevex-text-logo-light.png";
+import BrandLogoDark from "../assets/carvex-logo/caevex-text-logo-dark.png";
 import { Tooltip } from "react-tooltip";
 import Lottie from "lottie-react";
 import loadingAnimation from "../assets/animations/Loading.json";
@@ -10,6 +12,8 @@ import Menu from "./Menu";
 
 const Navbar = () => {
   const { user, logOut, loading } = useContext(AuthContext);
+  const { theme } = useContext(ThemeContext);
+
   if (loading) {
     return (
       <div className="navbar">
@@ -19,14 +23,18 @@ const Navbar = () => {
   }
 
   return (
-    <div className=" backdrop-blur-sm">
-      <div className="bg-base-100 mt-5">
-        <div className="navbar w-10/12 m-auto flex justify-center">
+    <div className="">
+      <div className="bg-base-100 backdrop-blur-sm">
+        <div className="navbar w-11/12 m-auto flex justify-center">
           {/* Brand Logo */}
           <div className="lg:navbar-start flex items-center">
             <Link to="/">
               <div className="flex items-center justify-center">
-                <img src={BrandLogo} alt="Brand Logo" className="w-24" />
+                <img
+                  src={theme === "dark" ? BrandLogoLight : BrandLogoDark}
+                  alt="Brand Logo"
+                  className="w-24"
+                />
               </div>
             </Link>
           </div>
@@ -38,7 +46,6 @@ const Navbar = () => {
 
           {/* Login or register buttons */}
           <div className="hidden lg:flex navbar-end space-x-2">
-            {/* Conditionally hide Register button if user is logged in */}
             {!user && (
               <NavLink to="/auth/register" type="button" className="btn btn-sm">
                 <span>Register</span>
@@ -63,7 +70,7 @@ const Navbar = () => {
                           src={user.photoURL || defaultAvatar}
                           alt="User Avatar"
                           className="rounded-full"
-                          data-tooltip-id="theme-tooltip"
+                          data-tooltip-id="user-tooltip"
                           data-tooltip-content={`${user.displayName}`}
                         />
                       </div>

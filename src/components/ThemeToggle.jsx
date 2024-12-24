@@ -15,15 +15,15 @@ const ThemeToggle = () => {
   return (
     <div className="flex items-center">
       <button
-        className="w-16 h-16 rounded-box bg-base-200 border border-base-100 flex items-center justify-center"
+        className="w-[34px] h-[34px] border border-base-300 rounded-[6px] flex items-center justify-center"
         data-tooltip-id="theme-tooltip"
         data-tooltip-content={`${theme === "dark" ? "Light" : "Dark"} Mode`}
         onClick={handleThemeChange}
       >
         {theme === "dark" ? (
-          <HiSun className="text-white text-3xl" />
+          <HiSun className="text-white text-2xl" />
         ) : (
-          <HiMoon className="text-black text-3xl" />
+          <HiMoon className="text-black text-2xl" />
         )}
       </button>
       {/* Tooltip Component */}
@@ -31,10 +31,10 @@ const ThemeToggle = () => {
         id="theme-tooltip"
         place="bottom"
         style={{
-          backgroundColor: "#1D232A",
-          color: "#ffffff",
-          padding: "8px 20px",
-          borderRadius: "10px",
+          backgroundColor: theme === "dark" ? "#18181b" : "#ffffff",
+          color: theme === "dark" ? "#ffffff" : "#000000",
+          padding: "6px 20px",
+          borderRadius: "6px",
         }}
       />
     </div>

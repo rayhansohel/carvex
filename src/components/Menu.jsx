@@ -8,7 +8,7 @@ const Menu = ({ closeDropdown }) => {
         to="/"
         onClick={closeDropdown}
         className={({ isActive }) =>
-          `btn btn-sm w-full bg-transparent border-none  ${
+          `btn btn-sm w-full bg-transparent border-none shadow-none ${
             isActive ? "text-[#ff0055]" : "transition"
           }`
         }
@@ -20,7 +20,7 @@ const Menu = ({ closeDropdown }) => {
         to="/available-cars"
         onClick={closeDropdown}
         className={({ isActive }) =>
-          `btn btn-sm w-full bg-transparent border-none  ${
+          `btn btn-sm w-full bg-transparent border-none shadow-none ${
             isActive ? "text-[#ff0055]" : "transition"
           }`
         }

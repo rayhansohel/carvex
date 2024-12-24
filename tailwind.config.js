@@ -9,6 +9,9 @@ module.exports = {
 			'antonio': ['Antonio', 'serif'],
 			'poppins': ['Poppins', 'serif'],
 		  },
+		  backgroundImage: {
+			hero: "url('https://i.ibb.co.com/2KCLs97/Back-red-background-audi.jpg')",
+		  },
 	  },
 	},
 	daisyui: {
