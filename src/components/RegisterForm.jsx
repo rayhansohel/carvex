@@ -131,7 +131,7 @@ const RegisterForm = () => {
 
   return (
     <div>
-      <div className="card min-w-[400px] bg-base-200 border border-base-100 rounded-box flex flex-col items-center justify-center pt-8">
+      <div className="card min-w-[400px] flex flex-col items-center justify-center">
         <div className="mt-10">
           <button
             onClick={handleGoogleRegister}
@@ -165,7 +165,7 @@ const RegisterForm = () => {
             />
           </div>
           {emailError && (
-            <div className="text-sm text-red-500 mt-2 ml-4">
+            <div className="text-sm text-[#ff0055] mt-2 ml-4">
               <p>{emailError}</p>
             </div>
           )}
@@ -187,7 +187,7 @@ const RegisterForm = () => {
             />
             <span
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-2 top-[7px] cursor-pointer hover:text-pink-600"
+              className="absolute right-2 top-[7px] cursor-pointer hover:text-[#ff0055]"
             >
               {showPassword ? (
                 <AiFillEyeInvisible size={20} />
@@ -197,14 +197,14 @@ const RegisterForm = () => {
             </span>
           </div>
           {passwordError && (
-            <div className="text-sm text-red-500 mt-2 ml-4">
+            <div className="text-sm text-[#ff0055] mt-2 ml-4">
               <p>{passwordError}</p>
             </div>
           )}
           <div className="form-control mt-6">
             <button
               type="submit"
-              className="btn btn-sm mt-2 bg-pink-600 hover:bg-pink-700"
+              className="btn btn-sm btn-primary mt-2"
             >
               <span>Register</span>
             </button>
@@ -214,7 +214,7 @@ const RegisterForm = () => {
               Already have an account?{" "}
               <Link
                 to="/auth/login"
-                className="font-semibold text-red-700 hover:text-red-600"
+                className="font-semibold text-[#ff0055]"
               >
                 Login
               </Link>

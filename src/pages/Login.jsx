@@ -10,7 +10,7 @@ const Login = () => {
         <title>Login - Carvex</title>
       </Helmet>
       <div className="grid grid-cols-2 w-full">
-        <div className="text-sm bg-hero w-full h-screen bg-cover bg-center flex justify-center items-center gap-4 flex-col">
+        <div className="text-sm bg-login w-full h-screen bg-cover bg-center flex justify-center items-center gap-4 flex-col">
           <div className="w-full bg-[#09090b8f] backdrop-blur-sm h-full flex flex-col items-center justify-center gap-4">
             {/* Brand Logo */}
             <div className="flex items-center">

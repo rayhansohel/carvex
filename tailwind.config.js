@@ -10,7 +10,8 @@ module.exports = {
 			'poppins': ['Poppins', 'serif'],
 		  },
 		  backgroundImage: {
-			hero: "url('https://i.ibb.co.com/2KCLs97/Back-red-background-audi.jpg')",
+			login: "url('https://i.ibb.co.com/SRwQvNy/21770.jpg')",
+			register: "url('https://i.ibb.co.com/pLPTRDX/8960.jpg')",
 		  },
 	  },
 	},

@@ -31,8 +31,8 @@ const ThemeToggle = () => {
         id="theme-tooltip"
         place="bottom"
         style={{
-          backgroundColor: theme === "dark" ? "#18181b" : "#ffffff",
-          color: theme === "dark" ? "#ffffff" : "#000000",
+          backgroundColor: theme === "light" ? "#18181b" : "#f4f4f5",
+          color: theme === "light" ? "#ffffff" : "#000000",
           padding: "6px 20px",
           borderRadius: "6px",
         }}
