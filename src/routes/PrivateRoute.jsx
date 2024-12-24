@@ -1,35 +1,36 @@
 /* eslint-disable react/prop-types */
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
-
+import Lottie from "lottie-react";
+import loadingAnimation from "../assets/animations/Loading.json";
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    if (loading) {
-      //loading spinner
-      return;
+    if (!loading && !user) {
+      sessionStorage.setItem("redirectPath", location.pathname);
+      navigate("/", { replace: true });
     }
-
-    if (!user) {
-      sessionStorage.setItem("redirectPath", window.location.pathname);
-      navigate("/login");
-    }
-  }, [user, loading, navigate]);
+  }, [user, loading, navigate, location]);
 
   if (loading) {
-    //loading spinner
-    return;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Lottie animationData={loadingAnimation} className="w-32" />
+      </div>
+    );
   }
 
   if (user) {
     return children;
   }
 
-  return null; // Or return a placeholder like a loading spinner
+  return null;
 };
 
 export default PrivateRoute;
+
