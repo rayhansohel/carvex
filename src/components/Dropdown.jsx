@@ -3,9 +3,10 @@ import { HiMenu } from "react-icons/hi";
 import { IoClose } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
-import defaultAvatar from "../assets/default-avatar.png";
+import defaultAvatar from "../assets/others/default-avatar.png";
 import { AuthContext } from "../contexts/AuthContext";
-import MenuItems from "./Menu";
+import Menu from "./Menu";
+
 
 const Dropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,6 +21,7 @@ const Dropdown = () => {
     setIsOpen(false);
   };
 
+  // Close dropdown if click is outside of the dropdown
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -35,7 +37,7 @@ const Dropdown = () => {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
-        className="btn btn-sm shadow-none h-8 w-10"
+        className="btn btn-sm shadow-none h-9 w-9"
       >
         {isOpen ? (
           <span className="text-2xl">
@@ -49,16 +51,22 @@ const Dropdown = () => {
       </button>
 
       {isOpen && (
-        <div className="text-sm absolute top-16 -left-3 w-[300px]">
-          <div className="flex p-5 bg-base-200 border border-base-100 rounded-box">
-            <div>
+        <div className="text-sm absolute top-12 left-0 min-w-40 max-w-[350px] shadow-lg">
+          <div className="p-4 bg-base-200 rounded-box">
+
+            <div className="space-y-2">
+              {/* Pass closeDropdown to MenuItems */}
+              <Menu closeDropdown={closeDropdown} />
+            </div>
+            <div className="border-t border-base-100 mt-3 mb-4"></div>
+            <div className="flex items-center justify-center">
               <div className="space-y-2">
                 {!user && (
                   <NavLink
                     to="/auth/register"
                     type="button"
                     onClick={closeDropdown}
-                    className="btn btn-sm w-full bg-base-100 shadow-none"
+                    className="btn btn-sm w-full bg-base-300 shadow-none"
                   >
                     <span>Register</span>
                   </NavLink>
@@ -66,14 +74,14 @@ const Dropdown = () => {
 
                 <div>
                   {user && user?.email ? (
-                    <>
+                    <div>
                       <div className="flex flex-col items-center">
                         <div className="avatar mb-2">
-                          <div className="w-28">
+                          <div className="w-20">
                             <img
                               src={user.photoURL || defaultAvatar}
                               alt="User Avatar"
-                              className="rounded-xl"
+                              className="rounded-full"
                             />
                           </div>
                         </div>
@@ -85,18 +93,18 @@ const Dropdown = () => {
                             closeDropdown();
                           }}
                           type="button"
-                          className="btn btn-sm w-full bg-base-100 shadow-none"
+                          className="btn btn-sm w-full bg-base-300 shadow-none"
                         >
                           <span>Logout</span>
                         </NavLink>
                       </div>
-                    </>
+                    </div>
                   ) : (
                     <NavLink
-                      to="login"
+                      to="/auth/login"
                       type="button"
                       onClick={closeDropdown}
-                      className="btn btn-sm bg-base-100 shadow-none text-pink-600 w-full"
+                      className="btn btn-sm w-full bg-base-300 shadow-none"
                     >
                       <span>Login</span>
                     </NavLink>
@@ -104,10 +112,7 @@ const Dropdown = () => {
                 </div>
               </div>
             </div>
-            <div className="divider divider-horizontal"></div>
-            <div className="space-y-2">
-              <MenuItems closeDropdown={closeDropdown} />
-            </div>
+
           </div>
         </div>
       )}

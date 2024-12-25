@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Lottie from "lottie-react";
 import loginAnimation from "../assets/animations/404.json";
 import ThemeToggle from "../components/ThemeToggle";
+import { GrHomeRounded } from "react-icons/gr";
 
 const Error404 = () => {
   return (
@@ -17,13 +18,13 @@ const Error404 = () => {
         </h1>
         <p>Oops! The page you are looking for does not exist.</p>
         <Link to="/">
-          <button className="btn btn-sm btn-secondary text-white">
-            Go to Homepage
+          <button className="btn btn-sm btn-primary">
+            <GrHomeRounded /> Go Back Home
           </button>
         </Link>
       </div>
       {/* Theme Toggle buttons */}
-      <div className="fixed bottom-2 right-4">
+      <div className="fixed top-4 right-4">
         <ThemeToggle />
       </div>
     </div>

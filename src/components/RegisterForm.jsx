@@ -1,13 +1,12 @@
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
-import { updateProfile } from "firebase/auth";
 import { toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
 import { AuthContext } from "../contexts/AuthContext";
 
 const RegisterForm = () => {
-  const { createNewUser, setUser, signInWithGoogle } = useContext(AuthContext);
+  const { registerWithEmailPassword, signInWithGoogle } = useContext(AuthContext);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [passwordError, setPasswordError] = useState("");
@@ -19,13 +18,13 @@ const RegisterForm = () => {
     const minLength = password.length >= 6;
 
     if (!uppercase.test(password)) {
-      return "Password at least one uppercase letter!";
+      return "Password must have at least one uppercase letter!";
     }
     if (!lowercase.test(password)) {
-      return "Password at least one lowercase letter!";
+      return "Password must have at least one lowercase letter!";
     }
     if (!minLength) {
-      return "Password at least 6 characters long!";
+      return "Password must be at least 6 characters long!";
     }
     return "";
   };
@@ -64,65 +63,50 @@ const RegisterForm = () => {
     toast.dismiss();
 
     try {
-      // Create a new user with Firebase
-      const result = await createNewUser(email, password);
-      const user = result.user;
-
-      // Update user profile with displayName and photoURL
-      await updateProfile(user, { displayName, photoURL });
-
-      // Set the updated user in context
-      const updatedUser = { ...user, displayName, photoURL };
-      setUser(updatedUser);
-
-      // Notify user of success
-      toast.success("Registration successful!", {
+      // Call the manual registration function
+      await registerWithEmailPassword(email, password, displayName, photoURL);
+      toast.success("Registration successful! Please log in.", {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: true,
       });
+      navigate("/auth/login"); // Redirect to login after registration
 
-      // Navigate to the homepage after successful registration
-      navigate("/");
-
-      // Reload the page to ensure user session is fresh
-      window.location.reload();
     } catch (err) {
       if (err.code === "auth/email-already-in-use") {
-        toast.error("This email is already registered. Please log in.", {
+        toast.error("Email is already in use. Try a different one.", {
           position: "bottom-right",
-          autoClose: 5000,
           hideProgressBar: true,
         });
       } else {
-        toast.success(`Registration successful!`, {
+        toast.error("Something went wrong. Please try again.", {
           position: "bottom-right",
-          autoClose: 5000,
           hideProgressBar: true,
         });
       }
-      console.error("Error during registration:", err);
     }
   };
 
-  const handleGoogleRegister = () => {
+  const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((result) => {
-        const user = result.user;
-        setUser(user);
-        toast.success("Registration with Google successful!", {
+        toast.success("Login with Google successful!", {
           position: "bottom-right",
           hideProgressBar: true,
         });
-
-        // Navigate to the homepage after successful registration
-        navigate("/");
-
-        // Reload the page to ensure user session is fresh
-        window.location.reload();
+        const redirectTo = localStorage.getItem("redirectTo");
+        setTimeout(() => {
+          if (redirectTo) {
+            localStorage.removeItem("redirectTo");
+            navigate(redirectTo);
+          } else {
+            navigate("/");
+          }
+          window.location.reload();
+        }, 1000);
       })
       .catch(() => {
-        toast.error("Google registration failed. Try again!", {
+        toast.error("Google sign-in failed. Try again!", {
           position: "bottom-right",
           hideProgressBar: true,
         });
@@ -130,98 +114,91 @@ const RegisterForm = () => {
   };
 
   return (
-    <div>
-      <div className="card min-w-[400px] flex flex-col items-center justify-center">
-        <div className="mt-10">
-          <button
-            onClick={handleGoogleRegister}
-            type="button"
-            className="btn btn-sm bg-base-100 shadow-none"
-          >
-            <FcGoogle className="text-xl" />
-            <span>Register with Google</span>
-          </button>
+    <div className="flex flex-col items-center justify-center min-w-96">
+      <div>
+        <button
+          onClick={handleGoogleSignIn}
+          type="button"
+          className="btn btn-sm bg-base-100 shadow-none"
+        >
+          <FcGoogle className="text-lg" />
+          <span>Sign-In with Google</span>
+        </button>
+      </div>
+      <div className="flex w-full flex-col px-9 mt-4 -mb-4">
+        <div className="divider">OR</div>
+      </div>
+      <form onSubmit={handleSubmit} className="card-body w-full space-y-2">
+        <div>
+          <h1 className="text-center">Register Here</h1>
         </div>
-        <div className="flex w-full flex-col px-9 mt-4 -mb-4">
-          <div className="divider">OR</div>
+        <div className="form-control">
+          <input
+            type="text"
+            name="displayName"
+            placeholder="Your Name"
+            className="input input-sm input-bordered text-xs rounded-[6px] font-semibold focus:outline-none border-none bg-base-300"
+            required
+          />
         </div>
-        <form onSubmit={handleSubmit} className="card-body w-full space-y-2">
-          <div className="form-control">
-            <input
-              type="text"
-              name="displayName"
-              placeholder="Enter your name"
-              className="input input-sm input-bordered text-xs font-semibold focus:outline-none border-none bg-base-300"
-              required
-            />
-          </div>
-          <div className="form-control">
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter your email address"
-              className="input input-sm input-bordered text-xs font-semibold focus:outline-none border-none bg-base-300"
-              required
-            />
-          </div>
+        <div className="form-control">
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            className="input input-sm input-bordered text-xs rounded-[6px] font-semibold focus:outline-none border-none bg-base-300"
+            required
+          />
           {emailError && (
-            <div className="text-sm text-[#ff0055] mt-2 ml-4">
-              <p>{emailError}</p>
-            </div>
+            <div className="text-sm text-[#ff0055] mt-2 ml-4">{emailError}</div>
           )}
-          <div className="form-control">
-            <input
-              type="text"
-              name="photoURL"
-              placeholder="Enter your photo URL (optional)"
-              className="input input-sm input-bordered text-xs font-semibold focus:outline-none border-none bg-base-300"
-            />
-          </div>
-          <div className="form-control relative">
-            <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              placeholder="Enter your password"
-              className="input input-sm input-bordered text-xs font-semibold focus:outline-none border-none bg-base-300"
-              required
-            />
-            <span
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-2 top-[7px] cursor-pointer hover:text-[#ff0055]"
-            >
-              {showPassword ? (
-                <AiFillEyeInvisible size={20} />
-              ) : (
-                <AiFillEye size={20} />
-              )}
-            </span>
-          </div>
+        </div>
+        <div className="form-control relative">
+          <input
+            type={showPassword ? "text" : "password"}
+            name="password"
+            placeholder="Password"
+            className="input input-sm input-bordered text-xs rounded-[6px] font-semibold focus:outline-none border-none bg-base-300"
+            required
+          />
+          <span
+            className="absolute right-2 top-[7px] cursor-pointer"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? (
+              <AiFillEyeInvisible size={20} />
+            ) : (
+              <AiFillEye size={20} />
+            )}
+          </span>
           {passwordError && (
             <div className="text-sm text-[#ff0055] mt-2 ml-4">
-              <p>{passwordError}</p>
+              {passwordError}
             </div>
           )}
-          <div className="form-control mt-6">
-            <button
-              type="submit"
-              className="btn btn-sm btn-primary mt-2"
-            >
-              <span>Register</span>
-            </button>
-          </div>
-          <div className="text-sm text-center">
-            <p>
-              Already have an account?{" "}
-              <Link
-                to="/auth/login"
-                className="font-semibold text-[#ff0055]"
-              >
-                Login
-              </Link>
-            </p>
-          </div>
-        </form>
-      </div>
+        </div>
+        <div className="form-control">
+          <input
+            type="text"
+            name="photoURL"
+            placeholder="Profile Picture URL"
+            className="input input-sm input-bordered text-xs rounded-[6px] font-semibold focus:outline-none border-none bg-base-300"
+          />
+        </div>
+        <div className="form-control mt-6">
+          <button type="submit" className="btn btn-sm btn-primary">
+            Register
+          </button>
+        </div>
+        <div className="text-sm text-center">
+          <p>
+            Already have an account?{" "}
+            <Link to="/auth/login" className="font-semibold text-[#ff0055]">
+              Login
+            </Link>
+          </p>
+        </div>
+      </form>
     </div>
   );
 };

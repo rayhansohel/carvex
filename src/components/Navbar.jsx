@@ -8,6 +8,8 @@ import BrandLogoDark from "../assets/carvex-logo/caevex-text-logo-dark.png";
 import Lottie from "lottie-react";
 import loadingAnimation from "../assets/animations/Loading.json";
 import Menu from "./Menu";
+import Dropdown from "./Dropdown";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const { user, logOut, loading } = useContext(AuthContext);
@@ -33,8 +35,12 @@ const Navbar = () => {
   }
 
   return (
-    <div className="bg-base-100 backdrop-blur-sm border-b border-base-300">
-      <div className="navbar  m-auto flex justify-center">
+    <div className="backdrop-blur-sm border-b bg-accent/80 border-accent">
+      {/* Mobile Dropdown Menu */}
+      <div className="lg:hidden fixed top-4 left-4">
+        <Dropdown />
+      </div>
+      <div className="navbar w-10/12 m-auto flex justify-center">
         {/* Brand Logo */}
         <div className="lg:navbar-start flex items-center">
           <Link to="/">
@@ -42,7 +48,7 @@ const Navbar = () => {
               <img
                 src={theme === "dark" ? BrandLogoLight : BrandLogoDark}
                 alt="Brand Logo"
-                className="w-20"
+                className="w-28"
               />
             </div>
           </Link>
@@ -67,7 +73,7 @@ const Navbar = () => {
               <button
                 onClick={handleLogout}
                 type="button"
-                className="btn btn-sm btn-primary"
+                className="btn btn-sm"
               >
                 Logout
               </button>
@@ -90,7 +96,7 @@ const Navbar = () => {
 
                 {/* Dropdown Menu */}
                 {showDropdown && (
-                  <div className="absolute top-8 right-0 mt-2 w-64 bg-base-200 shadow-lg rounded-xl p-4 z-50">
+                  <div className="absolute top-8 right-0 mt-2 w-80 bg-base-200 shadow-lg rounded-xl p-6 z-50">
                     <div className="flex items-center justify-center gap-4">
                       <img
                         src={user.photoURL || defaultAvatar}
@@ -122,6 +128,10 @@ const Navbar = () => {
             </NavLink>
           )}
         </div>
+      </div>
+      {/* Theme Toggle buttons */}
+      <div className="fixed top-4 right-4">
+        <ThemeToggle />
       </div>
     </div>
   );

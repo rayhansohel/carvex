@@ -1,12 +1,11 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import ThemeToggle from "../components/ThemeToggle";
 
 const MainLayout = () => {
   return (
     <div>
-      <div>
+      <div className="sticky top-0 z-50">
         {/* load navvar here*/}
         <Navbar />
       </div>
@@ -14,13 +13,9 @@ const MainLayout = () => {
         {/* load pages here */}
         <Outlet />
       </div>
-      <div className="text-center bg-base-100 p-5 border-t border-base-300">
+      <div>
         {/* load footer footer*/}
         <Footer />
-      </div>
-      {/* Theme Toggle buttons */}
-      <div className="fixed bottom-2 right-2">
-        <ThemeToggle />
       </div>
     </div>
   );

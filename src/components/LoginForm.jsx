@@ -6,19 +6,35 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../contexts/AuthContext";
 
-
 const LoginForm = () => {
   const { userLogin, setUser, signInWithGoogle, user } =
     useContext(AuthContext);
   const navigate = useNavigate();
   const emailRef = useRef();
   const [showPassword, setShowPassword] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   useEffect(() => {
     if (user) {
       navigate("/");
     }
   }, [user, navigate]);
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
+      return "Please enter a valid email address!";
+    }
+    return "";
+  };
+
+  const validatePassword = (password) => {
+    if (password.length < 6) {
+      return "Password should be at least 6 characters long!";
+    }
+    return "";
+  };
 
   const handleGoogleSignIn = () => {
     signInWithGoogle()
@@ -29,15 +45,17 @@ const LoginForm = () => {
           position: "bottom-right",
           hideProgressBar: true,
         });
-        window.location.reload();
-        // Check if there's a redirect path saved in localStorage
+
         const redirectTo = localStorage.getItem("redirectTo");
-        if (redirectTo) {
-          localStorage.removeItem("redirectTo");
-          navigate(redirectTo); // Redirect to the saved path
-        } else {
-          navigate("/"); // Redirect to home if no saved path
-        }
+        setTimeout(() => {
+          if (redirectTo) {
+            localStorage.removeItem("redirectTo");
+            navigate(redirectTo);
+          } else {
+            navigate("/");
+          }
+          window.location.reload();
+        }, 1000);
       })
       .catch(() => {
         toast.error("Google sign-in failed. Try again!", {
@@ -53,6 +71,21 @@ const LoginForm = () => {
     const email = form.get("email");
     const password = form.get("password");
 
+    const emailValidationError = validateEmail(email);
+    if (emailValidationError) {
+      setEmailError(emailValidationError);
+      return;
+    }
+
+    const passwordValidationError = validatePassword(password);
+    if (passwordValidationError) {
+      setPasswordError(passwordValidationError);
+      return;
+    }
+
+    setEmailError("");
+    setPasswordError("");
+
     userLogin(email, password)
       .then((result) => {
         const user = result.user;
@@ -61,16 +94,17 @@ const LoginForm = () => {
           position: "bottom-right",
           hideProgressBar: true,
         });
-        window.location.reload();
-        
-        // Check if there's a redirect path saved in localStorage
+
         const redirectTo = localStorage.getItem("redirectTo");
-        if (redirectTo) {
-          localStorage.removeItem("redirectTo");
-          navigate(redirectTo); // Redirect to the saved path
-        } else {
-          navigate("/"); // Redirect to home if no saved path
-        }
+        setTimeout(() => {
+          if (redirectTo) {
+            localStorage.removeItem("redirectTo");
+            navigate(redirectTo);
+          } else {
+            navigate("/");
+          }
+          window.location.reload();
+        }, 1000);
       })
       .catch(() => {
         toast.error("Put valid email and password", {
@@ -106,6 +140,11 @@ const LoginForm = () => {
               className="input input-sm input-bordered text-xs rounded-[6px] font-semibold focus:outline-none border-none bg-base-300"
               required
             />
+            {emailError && (
+              <div className="text-sm text-[#ff0055] mt-2 ml-4">
+                {emailError}
+              </div>
+            )}
           </div>
           <div className="form-control relative">
             <input
@@ -125,12 +164,14 @@ const LoginForm = () => {
                 <AiFillEye size={20} />
               )}
             </span>
+            {passwordError && (
+              <div className="text-sm text-[#ff0055] mt-2 ml-4">
+                {passwordError}
+              </div>
+            )}
           </div>
           <div className="form-control mt-6">
-            <button
-              type="submit"
-              className="btn btn-sm btn-primary"
-            >
+            <button type="submit" className="btn btn-sm btn-primary">
               <span>Login</span>
             </button>
           </div>

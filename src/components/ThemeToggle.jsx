@@ -15,9 +15,9 @@ const ThemeToggle = () => {
   return (
     <div className="flex items-center">
       <button
-        className="w-[34px] h-[34px] border border-base-300 rounded-[6px] flex items-center justify-center"
+        className="w-[34px] h-[34px] bg-base-200 rounded-[6px] flex items-center justify-center"
         data-tooltip-id="theme-tooltip"
-        data-tooltip-content={`${theme === "dark" ? "Light" : "Dark"} Mode`}
+        data-tooltip-content={`${theme === "dark" ? "Light" : "Dark"}`}
         onClick={handleThemeChange}
       >
         {theme === "dark" ? (

@@ -7,10 +7,9 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
-  updateProfile,
-  sendPasswordResetEmail,
   GoogleAuthProvider,
   signInWithPopup,
+  updateProfile,
 } from "firebase/auth";
 import { AuthContext } from "./AuthContext";
 
@@ -43,15 +42,14 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const createNewUser = async (email, password) => {
+  const registerWithEmailPassword = async (email, password, displayName, photoURL) => {
     setError(null);
     try {
-      const result = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      setUser(result.user);
+      const result = await createUserWithEmailAndPassword(auth, email, password);
+
+      // Update profile with name and photoURL
+      await updateProfile(result.user, { displayName, photoURL });
+      setUser({ ...result.user, displayName, photoURL });
 
       const idToken = await result.user.getIdToken();
       localStorage.setItem("authToken", idToken);
@@ -90,27 +88,6 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const updateUserProfile = async (displayName, photoURL) => {
-    setError(null);
-    if (user) {
-      try {
-        await updateProfile(auth.currentUser, { displayName, photoURL });
-        setUser({ ...auth.currentUser, displayName, photoURL });
-      } catch (err) {
-        handleError(err);
-      }
-    }
-  };
-
-  const resetPassword = async (email) => {
-    setError(null);
-    try {
-      await sendPasswordResetEmail(auth, email);
-    } catch (err) {
-      handleError(err);
-    }
-  };
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -131,11 +108,9 @@ const AuthProvider = ({ children }) => {
   const authInfo = {
     user,
     setUser,
-    createNewUser,
+    registerWithEmailPassword,
     userLogin,
     logOut,
-    updateUserProfile,
-    resetPassword,
     signInWithGoogle,
     error,
     loading,
