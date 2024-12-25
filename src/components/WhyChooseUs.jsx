@@ -61,7 +61,7 @@ const WhyChooseUs = () => {
   return (
     <section ref={ref} className="py-12 bg-base-100">
       <div className="container mx-auto px-6">
-        <h2 className="font-antonio text-xl md:text-3xl font-bold text-center mb-8">
+        <h2 className="font-antonio text-2xl md:text-3xl font-bold text-center mb-8">
           Why Choose Us?
         </h2>
 
