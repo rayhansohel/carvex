@@ -6,7 +6,8 @@ import { FcGoogle } from "react-icons/fc";
 import { AuthContext } from "../contexts/AuthContext";
 
 const RegisterForm = () => {
-  const { registerWithEmailPassword, signInWithGoogle } = useContext(AuthContext);
+  const { registerWithEmailPassword, signInWithGoogle } =
+    useContext(AuthContext);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [passwordError, setPasswordError] = useState("");
@@ -71,7 +72,6 @@ const RegisterForm = () => {
         hideProgressBar: true,
       });
       navigate("/auth/login"); // Redirect to login after registration
-
     } catch (err) {
       if (err.code === "auth/email-already-in-use") {
         toast.error("Email is already in use. Try a different one.", {
@@ -150,7 +150,7 @@ const RegisterForm = () => {
             required
           />
           {emailError && (
-            <div className="text-sm text-[#ff0055] mt-2 ml-4">{emailError}</div>
+            <div className=" text-[#ff0055] mt-2 ml-4">{emailError}</div>
           )}
         </div>
         <div className="form-control relative">
@@ -172,9 +172,7 @@ const RegisterForm = () => {
             )}
           </span>
           {passwordError && (
-            <div className="text-sm text-[#ff0055] mt-2 ml-4">
-              {passwordError}
-            </div>
+            <div className=" text-[#ff0055] mt-2 ml-4">{passwordError}</div>
           )}
         </div>
         <div className="form-control">
@@ -190,7 +188,7 @@ const RegisterForm = () => {
             Register
           </button>
         </div>
-        <div className="text-sm text-center">
+        <div className=" text-center">
           <p>
             Already have an account?{" "}
             <Link to="/auth/login" className="font-semibold text-[#ff0055]">

@@ -141,9 +141,7 @@ const LoginForm = () => {
               required
             />
             {emailError && (
-              <div className="text-sm text-[#ff0055] mt-2 ml-4">
-                {emailError}
-              </div>
+              <div className=" text-[#ff0055] mt-2 ml-4">{emailError}</div>
             )}
           </div>
           <div className="form-control relative">
@@ -165,9 +163,7 @@ const LoginForm = () => {
               )}
             </span>
             {passwordError && (
-              <div className="text-sm text-[#ff0055] mt-2 ml-4">
-                {passwordError}
-              </div>
+              <div className=" text-[#ff0055] mt-2 ml-4">{passwordError}</div>
             )}
           </div>
           <div className="form-control mt-6">
@@ -175,7 +171,7 @@ const LoginForm = () => {
               <span>Login</span>
             </button>
           </div>
-          <div className="text-sm text-center">
+          <div className=" text-center">
             <p>
               Don't Have An Account?{" "}
               <Link

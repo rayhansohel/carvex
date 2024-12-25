@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 
 const MainLayout = () => {
   return (
-    <div>
+    <div className="">
       <div className="sticky top-0 z-50">
         {/* load navvar here*/}
         <Navbar />

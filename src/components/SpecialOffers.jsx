@@ -2,9 +2,6 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const SpecialOffers = () => {
-  // Define images as constants
-  const CAR_IMAGE_1 = "https://i.ibb.co.com/2KCLs97/Back-red-background-audi.jpg";
-  const CAR_IMAGE_2 = "https://i.ibb.co.com/4Sv4Ddk/51899.jpg";
 
   const offers = [
     {
@@ -12,7 +9,7 @@ const SpecialOffers = () => {
       title: "15% Off Weekend Rentals",
       description:
         "Plan your weekend getaway now! Enjoy a special discount on all car rentals this weekend.",
-      image: CAR_IMAGE_1,
+      image: "https://i.ibb.co.com/DRjTbwG/1920.jpg",
       buttonText: "Learn More",
     },
     {
@@ -20,7 +17,7 @@ const SpecialOffers = () => {
       title: "Luxury Cars at $99/Day",
       description:
         "Experience the ultimate comfort and style this holiday season with our luxury cars.",
-      image: CAR_IMAGE_2,
+      image: "https://i.ibb.co.com/2KCLs97/Back-red-background-audi.jpg",
       buttonText: "Book Now",
     },
   ];
@@ -60,7 +57,7 @@ const SpecialOffers = () => {
               className="flex flex-col md:flex-row items-center bg-base-200 rounded-3xl hover:shadow-lg overflow-hidden min-h-80"
               variants={cardVariants}
               whileHover={{ scale: 1.03, transition: { type: "spring", stiffness: 400 } }}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -200 : 200 }}  // Alternate sides for each card
+              initial={{ opacity: 0, x: index % 2 === 0 ? -200 : 200 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ type: "spring", stiffness: 100 }}
               viewport={{ once: true }}
@@ -73,7 +70,7 @@ const SpecialOffers = () => {
               />
 
               {/* Content Section */}
-              <div className="p-6 flex flex-col justify-center">
+              <div className="p-12 flex flex-col justify-center">
                 <h3 className="text-xl font-semibold mb-3">{offer.title}</h3>
                 <p className="text-primary/70 mb-4">{offer.description}</p>
                 <Link

@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 
 const Banner = () => {
   return (
-    <section className="relative w-full h-[650px] bg-cover bg-center bg-login">
+    <div className="relative w-full h-[650px] bg-black bg-cover bg-center bg-hero">
       {/* Overlay for readability */}
-      <div className="absolute inset-0 bg-black opacity-40"></div>
+      <div className="absolute inset-0 bg-black opacity-60"></div>
 
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white p-6">
         {/* Motivational Heading with Framer Motion */}
@@ -16,12 +16,12 @@ const Banner = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
         >
-          Drive Your Dreams Today! with
+          Drive Your Dreams Today!
         </motion.h1>
 
         {/* Brand Logo with Framer Motion */}
         <motion.div
-          className="flex items-center my-4 md:my-8"
+          className="flex items-center my-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
@@ -47,7 +47,7 @@ const Banner = () => {
           </Link>
         </motion.div>
       </div>
-    </section>
+    </div>
   );
 };
 

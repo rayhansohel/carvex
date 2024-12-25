@@ -4,7 +4,7 @@ import Dropdown from "../components/Dropdown";
 
 const AuthLayout = () => {
   return (
-    <div className="min-h-screen">
+    <div className=" min-h-screen">
       {/* load auth pages here */}
       <Outlet />
       {/* Theme Toggle buttons */}

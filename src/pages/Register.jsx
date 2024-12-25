@@ -16,7 +16,7 @@ const Register = () => {
         <title>Register - Carvex</title>
       </Helmet>
       <div className="grid grid-cols-1 lg:grid-cols-2 w-full">
-        <div className="text-sm bg-register w-full h-screen bg-cover bg-center hidden lg:flex justify-center items-center gap-4 flex-col">
+        <div className=" bg-register w-full h-screen bg-cover bg-center hidden lg:flex justify-center items-center gap-4 flex-col">
           <div className="w-full bg-[#09090b8f] backdrop-blur-sm h-full flex flex-col items-center justify-center gap-4">
             {/* Brand Logo */}
             <div className="flex items-center">

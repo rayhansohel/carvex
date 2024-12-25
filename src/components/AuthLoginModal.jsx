@@ -16,20 +16,14 @@ const AuthLoginModal = ({ isOpen, onClose, onRedirect }) => {
       >
         <h2 className="text-2xl text-center font-bold ">Please Login</h2>
         <Lottie animationData={loginAnimation} className="w-24" />
-        <p className="mt-2 text-sm text-center">
+        <p className="mt-2  text-center">
           You need to log in to access this page.
         </p>
         <div className="mt-4 flex justify-center space-x-4">
-          <button
-            className="btn btn-sm"
-            onClick={onClose}
-          >
+          <button className="btn btn-sm" onClick={onClose}>
             Cancel
           </button>
-          <button
-            className="btn btn-sm btn-primary"
-            onClick={onRedirect}
-          >
+          <button className="btn btn-sm btn-primary" onClick={onRedirect}>
             Go to Login
           </button>
         </div>

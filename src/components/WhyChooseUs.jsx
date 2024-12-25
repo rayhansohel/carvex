@@ -80,7 +80,7 @@ const WhyChooseUs = () => {
             >
               <div className="mb-4">{point.icon}</div>
               <h3 className="text-xl font-semibold mb-2">{point.title}</h3>
-              <p className="text-sm text-primary/70">{point.description}</p>
+              <p className="text-primary/70">{point.description}</p>
             </motion.div>
           ))}
         </motion.div>

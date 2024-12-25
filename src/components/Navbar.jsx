@@ -107,9 +107,7 @@ const Navbar = () => {
                         <p className="text-lg font-semibold">
                           {user.displayName || "User Name"}
                         </p>
-                        <p className="text-sm -mt-1 text-gray-500">
-                          {user.email}
-                        </p>
+                        <p className=" -mt-1 text-gray-500">{user.email}</p>
                       </div>
                     </div>
                   </div>

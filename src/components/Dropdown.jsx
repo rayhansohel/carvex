@@ -7,7 +7,6 @@ import defaultAvatar from "../assets/others/default-avatar.png";
 import { AuthContext } from "../contexts/AuthContext";
 import Menu from "./Menu";
 
-
 const Dropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, logOut } = useContext(AuthContext);
@@ -51,9 +50,8 @@ const Dropdown = () => {
       </button>
 
       {isOpen && (
-        <div className="text-sm absolute top-12 left-0 min-w-40 max-w-[350px] shadow-lg">
+        <div className=" absolute top-12 left-0 min-w-40 max-w-[350px] shadow-lg">
           <div className="p-4 bg-base-200 rounded-box">
-
             <div className="space-y-2">
               {/* Pass closeDropdown to MenuItems */}
               <Menu closeDropdown={closeDropdown} />
@@ -112,7 +110,6 @@ const Dropdown = () => {
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       )}

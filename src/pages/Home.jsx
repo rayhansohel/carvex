@@ -5,7 +5,7 @@ import SpecialOffers from "../components/SpecialOffers";
 
 const Home = () => {
   return (
-    <div className="text-sm  flex justify-center items-center gap-4 flex-col">
+    <div className="flex justify-center items-center gap-4 flex-col">
       <Helmet>
         <title>Carvex</title>
       </Helmet>

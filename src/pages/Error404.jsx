@@ -7,7 +7,7 @@ import { GrHomeRounded } from "react-icons/gr";
 
 const Error404 = () => {
   return (
-    <div className="text-sm">
+    <div className="">
       <Helmet>
         <title>Error 404 - Carvex</title>
       </Helmet>
