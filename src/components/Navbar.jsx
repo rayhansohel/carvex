@@ -35,7 +35,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className="backdrop-blur-sm border-b bg-accent/80 border-accent">
+    <div className="backdrop-blur bg-accent/50 border-accent">
       {/* Mobile Dropdown Menu */}
       <div className="lg:hidden fixed top-4 left-4">
         <Dropdown />
