@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
+import CarAddForm from "../components/CarAddForm";
 
 const AddCar = () => {
   return (
@@ -7,6 +8,7 @@ const AddCar = () => {
       <Helmet>
         <title>Add Car- Carvex</title>
       </Helmet>
+
       {/* Page Banner*/}
       <div className="relative w-full h-[300px] bg-black bg-cover bg-center bg-addcar">
         {/* Overlay for readability */}
@@ -23,6 +25,11 @@ const AddCar = () => {
             Add Car
           </motion.h1>
         </div>
+      </div>
+
+      {/* Car Add Form  */}
+      <div>
+        <CarAddForm/>
       </div>
     </div>
   );

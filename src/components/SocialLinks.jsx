@@ -1,5 +1,8 @@
-import { FaFacebook, FaGithub, FaInstagram, FaYoutube } from "react-icons/fa";
+import { AiOutlineYoutube } from "react-icons/ai";
+import { FaInstagram} from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import { FiFacebook } from "react-icons/fi";
+import { PiGithubLogoBold } from "react-icons/pi";
 
 const SocialLinks = () => {
   return (
@@ -11,7 +14,7 @@ const SocialLinks = () => {
           target="_blank"
           className="w-8 h-8 bg-base-200 flex items-center justify-center rounded-full hover:text-[#ff0055]"
         >
-          <FaFacebook />
+          <FiFacebook />
         </a>
         <a
           href="https://x.com/rrayhanSohel"
@@ -34,7 +37,7 @@ const SocialLinks = () => {
           className="w-8 h-8 bg-base-200 flex items-center justify-center rounded-full hover:text-[#ff0055]"
         >
           {" "}
-          <FaGithub />
+          <PiGithubLogoBold />
         </a>
         <a
           href="https://www.youtube.com/@arayhansohel"
@@ -42,7 +45,7 @@ const SocialLinks = () => {
           className="w-8 h-8 bg-base-200 flex items-center justify-center rounded-full hover:text-[#ff0055]"
         >
           {" "}
-          <FaYoutube />
+          <AiOutlineYoutube />
         </a>
       </div>
     </div>

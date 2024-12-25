@@ -13,7 +13,7 @@ const Footer = () => {
     <div className="text-center bg-accent">
       <div className="space-y-4">
         <div className="container mx-auto lg:flex lg:pt-10 pb-4 items-center justify-between">
-          <div className="p-6">
+          <div className="p-6 flex-[0.3]">
             <div className="flex items-center justify-center">
               <Link to="/">
                 <div className="flex items-center justify-center col-span-2">
@@ -37,23 +37,23 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="mx-12 border-b lg:border-l border-base-200 lg:h-32"></div>
+          <div className="flex-[0] mx-12 border-b lg:border-l border-base-200 lg:h-32"></div>
 
-          <div className="p-6">
+          <div className="flex-[0.4] p-6">
             <div>
               <h2 className="text-xl font-semibold pb-3">Page links</h2>
               {/* Menu Items */}
-              <div className="2xl:grid grid-flow-col-dense">
+              <div className="2xl:grid grid-flow-col-dense gap-2">
                 <Menu />
               </div>
             </div>
           </div>
 
-          <div className="mx-12 border-b lg:border-l border-base-200 lg:h-32"></div>
+          <div className="flex-[0.0] mx-12 border-b lg:border-l border-base-200 lg:h-32"></div>
 
-          <div className="p-6">
+          <div className="p-6 flex-[0.3]">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-2xl font-semibold mb-4">
+              <h2 className="text-xl font-semibold mb-4">
                 Subscribe Newsletter
               </h2>
 
@@ -72,7 +72,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="border-t border-base-200">
+        <div className="container mx-auto border-t border-base-200">
           <p className="p-4">
             © {new Date().getFullYear()}{" "}
             <Link to="/" className="text-secondary font-semibold">

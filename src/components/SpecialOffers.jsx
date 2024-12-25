@@ -38,7 +38,7 @@ const SpecialOffers = () => {
   };
 
   return (
-    <section className="pb-12">
+    <section className="pb-20">
       <div className="container mx-auto px-6">
         <h2 className="font-antonio text-2xl md:text-3xl font-bold text-center mb-8">
           Special Offers

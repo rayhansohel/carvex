@@ -66,12 +66,12 @@ const RegisterForm = () => {
     try {
       // Call the manual registration function
       await registerWithEmailPassword(email, password, displayName, photoURL);
-      toast.success("Registration successful! Please log in.", {
+      toast.success("Registration successful!", {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: true,
       });
-      navigate("/auth/login"); // Redirect to login after registration
+      navigate("/auth/login");
     } catch (err) {
       if (err.code === "auth/email-already-in-use") {
         toast.error("Email is already in use. Try a different one.", {
@@ -130,7 +130,7 @@ const RegisterForm = () => {
       </div>
       <form onSubmit={handleSubmit} className="card-body w-full space-y-2">
         <div>
-          <h1 className="text-center">Register Here</h1>
+          <h1 className="text-md text-center">Register Here</h1>
         </div>
         <div className="form-control">
           <input

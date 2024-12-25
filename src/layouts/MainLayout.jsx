@@ -4,12 +4,12 @@ import Footer from "../components/Footer";
 
 const MainLayout = () => {
   return (
-    <div className="">
+    <div className="text-sm">
       <div className="sticky top-0 z-50">
         {/* load navvar here*/}
         <Navbar />
       </div>
-      <div className="min-h-[calc(100vh-126px)]">
+      <div className="min-h-[calc(100vh-376px)]">
         {/* load pages here */}
         <Outlet />
       </div>
