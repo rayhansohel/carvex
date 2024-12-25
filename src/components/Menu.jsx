@@ -22,7 +22,7 @@ const Menu = () => {
       <NavLink
         to="/available-cars"
         className={({ isActive }) =>
-          `btn btn-sm w-full bg-transparent border-none shadow-none ${
+          `btn btn-sm w-full bg-transparent border-none shadow-none whitespace-nowrap  ${
             isActive ? "text-[#ff0055]" : "transition"
           }`
         }
@@ -36,7 +36,7 @@ const Menu = () => {
           <NavLink
             to="/add-car"
             className={({ isActive }) =>
-              `btn btn-sm w-full bg-transparent border-none shadow-none ${
+              `btn btn-sm w-full bg-transparent border-none shadow-none whitespace-nowrap ${
                 isActive ? "text-[#ff0055]" : "transition"
               }`
             }
@@ -47,7 +47,7 @@ const Menu = () => {
           <NavLink
             to="/my-cars"
             className={({ isActive }) =>
-              `btn btn-sm w-full bg-transparent border-none shadow-none ${
+              `btn btn-sm w-full bg-transparent border-none shadow-none whitespace-nowrap ${
                 isActive ? "text-[#ff0055]" : "transition"
               }`
             }
@@ -58,7 +58,7 @@ const Menu = () => {
           <NavLink
             to="/my-bookings"
             className={({ isActive }) =>
-              `btn btn-sm w-full bg-transparent border-none shadow-none ${
+              `btn btn-sm w-full bg-transparent border-none shadow-none whitespace-nowrap ${
                 isActive ? "text-[#ff0055]" : "transition"
               }`
             }
