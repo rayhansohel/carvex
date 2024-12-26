@@ -66,23 +66,13 @@ const RegisterForm = () => {
     try {
       // Call the manual registration function
       await registerWithEmailPassword(email, password, displayName, photoURL);
-      toast.success("Registration successful!", {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: true,
-      });
+      toast.success("Registration successful!");
       navigate("/auth/login");
     } catch (err) {
       if (err.code === "auth/email-already-in-use") {
-        toast.error("Email is already in use. Try a different one.", {
-          position: "bottom-right",
-          hideProgressBar: true,
-        });
+        toast.error("Email is already in use. Try a different one.");
       } else {
-        toast.error("Something went wrong. Please try again.", {
-          position: "bottom-right",
-          hideProgressBar: true,
-        });
+        toast.error("Something went wrong. Please try again.");
       }
     }
   };
@@ -90,10 +80,7 @@ const RegisterForm = () => {
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((result) => {
-        toast.success("Login with Google successful!", {
-          position: "bottom-right",
-          hideProgressBar: true,
-        });
+        toast.success("Login with Google successful!");
         const redirectTo = localStorage.getItem("redirectTo");
         setTimeout(() => {
           if (redirectTo) {
@@ -106,10 +93,7 @@ const RegisterForm = () => {
         }, 1000);
       })
       .catch(() => {
-        toast.error("Google sign-in failed. Try again!", {
-          position: "bottom-right",
-          hideProgressBar: true,
-        });
+        toast.error("Google sign-in failed. Try again!");
       });
   };
 

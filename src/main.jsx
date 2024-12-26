@@ -14,7 +14,10 @@ createRoot(document.getElementById("root")).render(
       <AuthProvider>
         <ThemeProvider>
           <RouterProvider router={Routes} />
-          <ToastContainer />
+          <ToastContainer
+            position="bottom-right"
+            hideProgressBar={true}
+          />
         </ThemeProvider>
       </AuthProvider>
     </HelmetProvider>

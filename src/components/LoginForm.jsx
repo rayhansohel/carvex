@@ -41,10 +41,7 @@ const LoginForm = () => {
       .then((result) => {
         const user = result.user;
         setUser(user);
-        toast.success("Login with Google successful!", {
-          position: "bottom-right",
-          hideProgressBar: true,
-        });
+        toast.success("Login with Google successful!");
 
         const redirectTo = localStorage.getItem("redirectTo");
         setTimeout(() => {
@@ -58,10 +55,7 @@ const LoginForm = () => {
         }, 1000);
       })
       .catch(() => {
-        toast.error("Google sign-in failed. Try again!", {
-          position: "bottom-right",
-          hideProgressBar: true,
-        });
+        toast.error("Google sign-in failed. Try again!");
       });
   };
 
@@ -90,10 +84,7 @@ const LoginForm = () => {
       .then((result) => {
         const user = result.user;
         setUser(user);
-        toast.success("Login successful!", {
-          position: "bottom-right",
-          hideProgressBar: true,
-        });
+        toast.success("Login successful!");
 
         const redirectTo = localStorage.getItem("redirectTo");
         setTimeout(() => {
@@ -107,10 +98,7 @@ const LoginForm = () => {
         }, 1000);
       })
       .catch(() => {
-        toast.error("Put valid email and password", {
-          position: "bottom-right",
-          hideProgressBar: true,
-        });
+        toast.error("Put valid email and password");
       });
   };
 

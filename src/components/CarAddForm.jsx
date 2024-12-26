@@ -1,83 +1,56 @@
 import { useState } from "react";
-import { useDropzone } from "react-dropzone";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CarAddForm = () => {
   const [formData, setFormData] = useState({
     carModel: "",
+    vehicleRegistrationNumber: "",
     dailyRentalPrice: "",
     availability: true,
-    vehicleRegistrationNumber: "",
     features: "",
-    description: "",
-    bookingCount: 0,
     location: "",
-    images: [],
+    description: "",
   });
-  const { isAuthenticated, userId } = useAuth(); // Get user ID from context
-  const navigate = useNavigate(); // Use navigate instead of history
 
-  // Handle form data change
-  const handleChange = (e) => {
+  // Handle form field change
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    const updatedFormData = {
-      ...formData,
+    setFormData((prevData) => ({
+      ...prevData,
       [name]: value,
-    };
-    setFormData(updatedFormData);
-    console.log("Updated car data:", updatedFormData); // Log each time input changes
+    }));
   };
 
-  // Handle file drop or selection
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop: (acceptedFiles) => {
-      const updatedFormData = {
-        ...formData,
-        images: acceptedFiles,
-      };
-      setFormData(updatedFormData);
-      console.log("Updated car data with images:", updatedFormData); // Log after files are added
-    },
-  });
-
-  // Submit the form
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isAuthenticated) return;
-
-    const carData = {
-      ...formData,
-      userId,
-      dateAdded: new Date(),
-    };
-
-    console.log("Submitting car data:", carData); // Log before submission
+    
+    console.log("Form data being sent:", formData);
 
     try {
-      // Save car data to the database
-      const response = await fetch("/api/cars", {
+      const response = await fetch("http://localhost:5000/add-car", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(carData),
+        body: JSON.stringify(formData),
       });
 
+      const data = await response.json();
       if (response.ok) {
-        alert("Car added successfully!");
-        navigate("/dashboard"); // Use navigate to redirect
+        toast.success(data.message);
       } else {
-        alert("Error adding car");
+        toast.error("Error: " + data.message);
       }
     } catch (error) {
-      console.error("Error adding car:", error);
-      alert("Error adding car");
+      console.error("Error:", error);
+      toast.error("Failed to submit the form.");
     }
   };
 
   return (
-    <div className="max-w-2xl mx-auto my-20">
+    <div className="max-w-2xl mx-auto my-20 bg-base-200 rounded-3xl p-6">
       <h2 className="text-center font-antonio text-2xl mb-4">
         Give Your Car the Care It Deserves!
       </h2>
@@ -94,8 +67,8 @@ const CarAddForm = () => {
               type="text"
               name="carModel"
               value={formData.carModel}
-              onChange={handleChange}
-              className="input input-sm input-bordered w-full rounded-[6px] font-semibold focus:outline-none border-none bg-base-300 "
+              onChange={handleInputChange}
+              className="input input-sm input-bordered w-full rounded-[6px] font-semibold focus:outline-none border-none bg-accent "
               required
             />
           </div>
@@ -105,8 +78,8 @@ const CarAddForm = () => {
               type="text"
               name="vehicleRegistrationNumber"
               value={formData.vehicleRegistrationNumber}
-              onChange={handleChange}
-              className="input input-sm input-bordered w-full rounded-[6px] font-semibold focus:outline-none border-none bg-base-300 "
+              onChange={handleInputChange}
+              className="input input-sm input-bordered w-full rounded-[6px] font-semibold focus:outline-none border-none bg-accent "
               required
             />
           </div>
@@ -118,8 +91,8 @@ const CarAddForm = () => {
               type="number"
               name="dailyRentalPrice"
               value={formData.dailyRentalPrice}
-              onChange={handleChange}
-              className="input input-sm input-bordered w-full rounded-[6px] font-semibold focus:outline-none border-none bg-base-300 "
+              onChange={handleInputChange}
+              className="input input-sm input-bordered w-full rounded-[6px] font-semibold focus:outline-none border-none bg-accent "
               required
             />
           </div>
@@ -128,8 +101,8 @@ const CarAddForm = () => {
             <select
               name="availability"
               value={formData.availability}
-              onChange={handleChange}
-              className="input input-sm input-bordered w-full rounded-[6px] font-semibold focus:outline-none border-none bg-base-300 "
+              onChange={handleInputChange}
+              className="input input-sm input-bordered w-full rounded-[6px] font-semibold focus:outline-none border-none bg-accent "
             >
               <option value={true}>Available</option>
               <option value={false}>Unavailable</option>
@@ -143,8 +116,8 @@ const CarAddForm = () => {
               type="text"
               name="features"
               value={formData.features}
-              onChange={handleChange}
-              className="input input-sm input-bordered w-full  rounded-[6px] font-semibold focus:outline-none border-none bg-base-300 "
+              onChange={handleInputChange}
+              className="input input-sm input-bordered w-full rounded-[6px] font-semibold focus:outline-none border-none bg-accent "
               placeholder="GPS, AC, Sunroof, etc "
             />
           </div>
@@ -154,8 +127,8 @@ const CarAddForm = () => {
               type="text"
               name="location"
               value={formData.location}
-              onChange={handleChange}
-              className="input input-sm input-bordered w-full  rounded-[6px] font-semibold focus:outline-none border-none bg-base-300 "
+              onChange={handleInputChange}
+              className="input input-sm input-bordered w-full rounded-[6px] font-semibold focus:outline-none border-none bg-accent "
               required
             />
           </div>
@@ -165,30 +138,10 @@ const CarAddForm = () => {
           <textarea
             name="description"
             value={formData.description}
-            onChange={handleChange}
-            className="textarea textarea-bordered w-full  rounded-xl font-semibold focus:outline-none border-none bg-base-300 "
+            onChange={handleInputChange}
+            className="textarea textarea-bordered w-full rounded-xl font-semibold focus:outline-none border-none bg-accent "
             rows="6"
           ></textarea>
-        </div>
-        <div className="mb-4">
-          <label className="block font-medium">Images</label>
-          <div
-            {...getRootProps()}
-            className="border-2 border-dashed border-base-300 bg-accent rounded-lg p-4 text-center cursor-pointer"
-          >
-            <input {...getInputProps()} />
-            <p>Drag & drop files here, or click to select files</p>
-          </div>
-          <div className="flex gap-2 mt-2">
-            {formData.images.map((file, idx) => (
-              <img
-                key={idx}
-                src={URL.createObjectURL(file)}
-                alt="Preview"
-                className="w-16 h-16 object-cover rounded-md"
-              />
-            ))}
-          </div>
         </div>
         <button type="submit" className="btn btn-sm btn-primary w-40">
           Add Car
