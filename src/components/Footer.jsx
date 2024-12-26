@@ -10,7 +10,7 @@ const Footer = () => {
   const { theme } = useContext(ThemeContext);
 
   return (
-    <div className="text-center bg-accent">
+    <div className="text-center bg-accent px-4">
       <div className="space-y-4">
         <div className="container mx-auto lg:flex lg:pt-10 pb-4 items-center justify-between">
           <div className="p-6 flex-[0.3]">

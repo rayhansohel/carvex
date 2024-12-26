@@ -35,12 +35,12 @@ const Navbar = () => {
   }
 
   return (
-    <div className="backdrop-blur bg-accent/50 border-accent">
+    <div className="px-4 backdrop-blur bg-accent/50 border-accent">
       {/* Mobile Dropdown Menu */}
       <div className="lg:hidden fixed top-4 left-4">
         <Dropdown />
       </div>
-      <div className="navbar container mx-auto px-6 flex justify-center">
+      <div className="navbar container mx-auto flex justify-center">
         {/* Brand Logo */}
         <div className="lg:navbar-start flex items-center">
           <Link to="/">
