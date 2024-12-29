@@ -21,6 +21,8 @@ const CarAddForm = () => {
     createdAt: new Date().toISOString(),
     bookingCount: 0, // Added bookingCount with default value 0
     images: [], // Added images array for storing uploaded files
+    imageUrl: "", // Added imageUrl state for manual URL input
+    imageSource: "upload", // Track whether user is uploading or entering URL
   });
 
   const [loading, setLoading] = useState(false);
@@ -67,13 +69,17 @@ const CarAddForm = () => {
     formDataToSend.append("createdAt", formData.createdAt);
     formDataToSend.append("bookingCount", formData.bookingCount);
 
-    // Append the images to form data
-    formData.images.forEach((image) => {
-      formDataToSend.append("images", image);
-    });
+    // Append the images or image URL to form data
+    if (formData.imageSource === "upload") {
+      formData.images.forEach((image) => {
+        formDataToSend.append("images", image);
+      });
+    } else {
+      formDataToSend.append("imageUrl", formData.imageUrl);
+    }
 
     try {
-      const response = await fetch("http://localhost:5000/cars", {
+      const response = await fetch("https://carvex-server.vercel.app/cars", {
         method: "POST",
         body: formDataToSend,
       });
@@ -93,6 +99,8 @@ const CarAddForm = () => {
           createdAt: new Date().toISOString(),
           bookingCount: 0,
           images: [],
+          imageUrl: "",
+          imageSource: "upload", // Reset to file upload mode
         });
       } else {
         throw new Error("Failed to add car");
@@ -209,29 +217,58 @@ const CarAddForm = () => {
               ></textarea>
             </div>
 
-            {/* React Dropzone for Image Upload */}
+            {/* Image Upload or URL Input */}
             <div className="mb-4">
               <label className="block font-medium mb-2">
-                Upload Car Images
+                Select Image Upload Method <span className="text-secondary" > *If Faild to add car then change the image upload process to via URL</span>
               </label>
-              <div
-                {...getRootProps()}
-                className="border-2 border-dashed border-accent p-6 rounded-md cursor-pointer text-center"
+              <select
+                name="imageSource"
+                value={formData.imageSource}
+                onChange={handleInputChange}
+                className="select select-sm select-bordered bg-base-200"
               >
-                <input {...getInputProps()} />
-                <p>Drag & Drop or Click to Select Images</p>
-              </div>
-              {formData.images.length > 0 && (
-                <div className="mt-4">
-                  <h4>Selected Images:</h4>
-                  {formData.images.map((image, index) => (
-                    <div key={index}>
-                      <p>{image.name}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
+                <option value="upload">Upload Images</option>
+                <option value="url">Enter Image URL</option>
+              </select>
             </div>
+
+            {/* Conditional Render: Upload Images or URL */}
+            {formData.imageSource === "upload" ? (
+              <div>
+                <label className="block font-medium mb-2">Upload Images </label>
+                <div
+                  {...getRootProps()}
+                  className="border-2 border-dashed border-accent p-6 rounded-md cursor-pointer text-center"
+                >
+                  <input {...getInputProps()} />
+                  <p>Drag & Drop or Click to Select Images</p>
+                </div>
+                {formData.images.length > 0 && (
+                  <div className="mt-4">
+                    <h4>Selected Images:</h4>
+                    {formData.images.map((image, index) => (
+                      <div key={index}>
+                        <p>{image.name}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div>
+                <label className="block font-medium mb-2">Enter Image URL</label>
+                <input
+                  type="url"
+                  name="imageUrl"
+                  value={formData.imageUrl}
+                  onChange={handleInputChange}
+                  className="input input-sm input-bordered w-full rounded-[6px] font-semibold focus:outline-none border-none bg-accent"
+                  placeholder="https://example.com/image.jpg"
+                />
+              </div>
+            )}
+
             <div className="flex items-center justify-center">
               <button
                 type="submit"
