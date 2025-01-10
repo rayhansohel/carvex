@@ -55,7 +55,7 @@ const RecentCarListings = () => {
             No cars available at the moment.
           </p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-6 gap-8 w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-8 w-full">
             {cars.map((car) => {
               const isAvailable = car.availability;
 
@@ -71,7 +71,7 @@ const RecentCarListings = () => {
                         : car.imageUrl
                     }
                     alt={car.carModel}
-                    className="w-full h-full object-cover"
+                    className="w-full object-cover"
                   />
                   <div className="p-4 flex flex-col justify-between w-full h-full gap-1">
                     <h3 className="text-xl font-semibold">

@@ -32,9 +32,6 @@ const Footer = () => {
             <div>
               <h4>The Road is Open, Let’s Go</h4>
             </div>
-            <div className="flex justify-center items-center">
-              <SocialLinks />
-            </div>
           </div>
 
           <div className="flex-[0] mx-12 border-b lg:border-l border-base-200 lg:h-32"></div>
@@ -53,20 +50,11 @@ const Footer = () => {
 
           <div className="p-6 flex-[0.3]">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-xl font-semibold mb-4">
-                Subscribe Newsletter
-              </h2>
+              <h2 className="text-xl font-semibold mb-2">Social links</h2>
 
               <div className="flex items-center justify-center">
-                <div className="flex">
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    className="flex-1 px-4 rounded-l-md focus:outline-none bg-base-200"
-                  />
-                  <button className="bg-[#ff0055] hover:bg-[#ff0055c5] text-black font-semibold px-6 py-2 rounded-r-md">
-                    Subscribe
-                  </button>
+                <div className="flex justify-center items-center">
+                  <SocialLinks />
                 </div>
               </div>
             </div>
