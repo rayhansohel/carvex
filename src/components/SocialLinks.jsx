@@ -11,23 +11,23 @@ const SocialLinks = () => {
       {/* social icons  */}
       <div className="flex gap-4">
         <Link
-          href="https://www.facebook.com/RayhanSohel"
+          href="https://www.facebook.com/"
           target="_blank"
-          className="w-8 h-8 bg-base-200 flex items-center justify-center rounded-md hover:text-[#ff0055]"
+          className="w-8 h-8 bg-base-200 flex items-center justify-center rounded-full hover:text-accent"
         >
           <FiFacebook className="text-lg"/>
         </Link>
         <Link
           href="https://x.com/rrayhanSohel"
           target="_blank"
-          className="w-8 h-8 bg-base-200 flex items-center justify-center rounded-md hover:text-[#ff0055]"
+          className="w-8 h-8 bg-base-200 flex items-center justify-center rounded-full hover:text-accent"
         >
           <FaXTwitter className="text-lg"/>
         </Link>
         <Link
           href="https://www.instagram.com/arayhansohel/"
           target="_blank"
-          className="w-8 h-8 bg-base-200 flex items-center justify-center rounded-md hover:text-[#ff0055]"
+          className="w-8 h-8 bg-base-200 flex items-center justify-center rounded-full hover:text-accent"
         >
           {" "}
           <FaInstagram className="text-lg"/>
@@ -35,7 +35,7 @@ const SocialLinks = () => {
         <Link
           href="https://github.com/RayhanSohel"
           target="_blank"
-          className="w-8 h-8 bg-base-200 flex items-center justify-center rounded-md hover:text-[#ff0055]"
+          className="w-8 h-8 bg-base-200 flex items-center justify-center rounded-full hover:text-accent"
         >
           {" "}
           <PiGithubLogoBold className="text-lg"/>
@@ -43,7 +43,7 @@ const SocialLinks = () => {
         <Link
           href="https://www.youtube.com/@arayhansohel"
           target="_blank"
-          className="w-8 h-8 bg-base-200 flex items-center justify-center rounded-md hover:text-[#ff0055]"
+          className="w-8 h-8 bg-base-200 flex items-center justify-center rounded-full hover:text-accent"
         >
           {" "}
           <AiOutlineYoutube className="text-lg" />

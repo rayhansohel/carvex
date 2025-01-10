@@ -36,14 +36,14 @@ const Dropdown = () => {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
-        className="btn btn-sm shadow-none h-9 w-9"
+        className="btn btn-sm btn-primary shadow-none h-9 w-9"
       >
         {isOpen ? (
-          <span className="text-2xl">
+          <span className="text-accent text-xl">
             <IoClose />
           </span>
         ) : (
-          <span className="text-2xl">
+          <span className="text-accent text-xl">
             <HiMenu />
           </span>
         )}
@@ -51,7 +51,7 @@ const Dropdown = () => {
 
       {isOpen && (
         <div className=" absolute top-12 left-0 min-w-40 max-w-[350px] shadow-lg">
-          <div className="p-4 bg-base-200">
+          <div className="p-4 bg-base-200 rounded-box">
             <div className="space-y-2">
               {/* Pass closeDropdown to MenuItems */}
               <Menu closeDropdown={closeDropdown} />

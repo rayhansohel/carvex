@@ -3,6 +3,7 @@ import WhyChooseUs from "../components/WhyChooseUs";
 import SpecialOffers from "../components/SpecialOffers";
 import RecentCarListings from "../components/RecentCarListings";
 import Banner from "../components/Banner";
+import Newsletter from './../components/Newsletter';
 
 
 const Home = () => {
@@ -15,6 +16,7 @@ const Home = () => {
       <RecentCarListings/>
       <WhyChooseUs/>
       <SpecialOffers/>
+      <Newsletter/>
     </div>
   );
 };

@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const SpecialOffers = () => {
@@ -21,25 +20,6 @@ const SpecialOffers = () => {
     },
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-      },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, x: 200 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { type: "spring", stiffness: 100 },
-    },
-  };
-
   return (
     <section className="px-4 pb-4 md:pb-20">
       <div className="container mx-auto">
@@ -47,26 +27,12 @@ const SpecialOffers = () => {
           Special Offers
         </h2>
 
-        {/* Animated Grid */}
-        <motion.div
-          className="grid grid-cols-1 lg:grid-cols-2 gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {offers.map((offer, index) => (
-            <motion.div
+        {/* Static Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {offers.map((offer) => (
+            <div
               key={offer.id}
-              className="flex flex-col md:flex-row items-center bg-base-200  hover:shadow-lg overflow-hidden min-h-80"
-              variants={cardVariants}
-              whileHover={{
-                scale: 1.03,
-                transition: { type: "spring", stiffness: 400 },
-              }}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -200 : 200 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ type: "spring", stiffness: 100 }}
-              viewport={{ once: true }}
+              className="flex flex-col md:flex-row items-center bg-base-200 rounded-3xl hover:shadow-lg overflow-hidden min-h-80"
             >
               {/* Image Section */}
               <img
@@ -86,9 +52,9 @@ const SpecialOffers = () => {
                   {offer.buttonText}
                 </Link>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

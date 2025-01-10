@@ -36,11 +36,14 @@ const Navbar = () => {
 
   return (
     <div className="px-4 backdrop-blur bg-base-300/50  shadow-lg">
+
+      <div className="navbar container mx-auto flex justify-between">
+
       {/* Mobile Dropdown Menu */}
-      <div className="lg:hidden fixed top-4 left-4">
+      <div className="lg:hidden">
         <Dropdown />
       </div>
-      <div className="navbar container mx-auto flex justify-center">
+
         {/* Brand Logo */}
         <div className="lg:navbar-start flex items-center">
           <Link to="/">
@@ -85,7 +88,7 @@ const Navbar = () => {
                 onMouseLeave={() => setShowDropdown(false)}
               >
                 <div className="avatar cursor-pointer flex items-center justify-center">
-                  <div className="w-9">
+                  <div className="w-8">
                     <img
                       src={user.photoURL || defaultAvatar}
                       alt="User Avatar"
