@@ -125,7 +125,7 @@ const AvailableCars = () => {
                 {/* Clear Search Button */}
                 {searchTerm && (
                   <button
-                    className="btn btn-sm btn-secondary ml-2"
+                    className="btn btn-sm btn-accent ml-2"
                     onClick={() => setSearchTerm("")}
                   >
                     Clear
@@ -185,7 +185,7 @@ const AvailableCars = () => {
               {sortedCars.map((car) => (
                 <motion.div
                   key={car._id}
-                  className={`flex flex-col md:flex-row items-center bg-base-200 rounded-3xl hover:shadow-lg overflow-hidden max-h-72 ${
+                  className={`flex flex-col md:flex-row items-center bg-base-200  hover:shadow-lg overflow-hidden max-h-72 ${
                     viewMode === "list" ? "flex-row" : ""
                   }`}
                   variants={cardVariants}

@@ -10,7 +10,7 @@ const Footer = () => {
   const { theme } = useContext(ThemeContext);
 
   return (
-    <div className="text-center bg-accent px-4">
+    <div className="text-center bg-base-300 px-4">
       <div className="space-y-4">
         <div className="container mx-auto lg:flex lg:pt-10 pb-4 items-center justify-between">
           <div className="p-6 flex-[0.3]">
@@ -41,9 +41,9 @@ const Footer = () => {
 
           <div className="flex-[0.4] p-6">
             <div>
-              <h2 className="text-xl font-semibold pb-3">Page links</h2>
+              <h2 className="text-xl font-semibold pb-3">Usefull links</h2>
               {/* Menu Items */}
-              <div className="2xl:grid grid-flow-col-dense gap-2">
+              <div>
                 <Menu />
               </div>
             </div>
@@ -75,7 +75,7 @@ const Footer = () => {
         <div className="container mx-auto border-t border-base-200">
           <p className="p-4">
             © {new Date().getFullYear()}{" "}
-            <Link to="/" className="text-secondary font-semibold">
+            <Link to="/" className="text-accent font-semibold">
               Carvex
             </Link>
             . All rights reserved.

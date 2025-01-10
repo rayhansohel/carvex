@@ -75,7 +75,7 @@ const WhyChooseUs = () => {
           {points.map((point, index) => (
             <motion.div
               key={index}
-              className="flex flex-col items-center text-center p-6 bg-base-200 rounded-3xl hover:shadow-lg transition-shadow duration-300"
+              className="flex flex-col items-center text-center p-6 bg-base-200  hover:shadow-lg transition-shadow duration-300"
               variants={itemVariants}
             >
               <div className="mb-4">{point.icon}</div>

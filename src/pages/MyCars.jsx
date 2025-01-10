@@ -17,7 +17,9 @@ const MyCars = () => {
       if (!user?.email) return; // Ensure user is logged in
 
       try {
-        const response = await fetch(`https://carvex-server.vercel.app/cars?email=${user.email}`);
+        const response = await fetch(
+          `https://carvex-server.vercel.app/cars?email=${user.email}`
+        );
         const data = await response.json();
 
         if (response.ok) {
@@ -47,7 +49,9 @@ const MyCars = () => {
     );
     if (confirmation) {
       try {
-        const response = await fetch(`/api/cars/${carId}`, { method: "DELETE" });
+        const response = await fetch(`/api/cars/${carId}`, {
+          method: "DELETE",
+        });
         if (response.ok) {
           toast.success("Car deleted successfully");
           setCars(cars.filter((car) => car.id !== carId));
@@ -123,7 +127,7 @@ const MyCars = () => {
               </button>
             </div>
 
-            <table className="min-w-full bg-base-200 rounded-3xl p-6">
+            <table className="min-w-full bg-base-200  p-6">
               <thead className="border border-accent">
                 <tr className=" bg-base-300">
                   <th className="px-6 py-3 text-left ">Car Image</th>
@@ -137,16 +141,19 @@ const MyCars = () => {
               </thead>
               <tbody>
                 {cars.map((car) => (
-                  <tr key={car.id} className="border-y border-base-100 roynded-3xl  ">
+                  <tr
+                    key={car.id}
+                    className="border-y border-base-100 roynded-3xl  "
+                  >
                     <td className="px-6 py-4">
                       <img
-                    src={
-                      car.images.length > 0
-                        ? `https://carvex-server.vercel.app/${car.images[0]}`
-                        : car.imageUrl
-                    }
+                        src={
+                          car.images.length > 0
+                            ? `https://carvex-server.vercel.app/${car.images[0]}`
+                            : car.imageUrl
+                        }
                         alt={car.model}
-                        className="w-12 h-12 rounded-xl object-cover"
+                        className="w-12 h-12  object-cover"
                       />
                     </td>
                     <td className="px-6 py-4">{car.model}</td>
@@ -165,7 +172,7 @@ const MyCars = () => {
                       </button>
                       <button
                         onClick={() => handleDelete(car.id)}
-                        className="btn-secondary btn btn-sm"
+                        className="btn-accent btn btn-sm"
                       >
                         Delete
                       </button>

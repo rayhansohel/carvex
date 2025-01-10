@@ -125,7 +125,7 @@ const LoginForm = () => {
               name="email"
               ref={emailRef}
               placeholder="Enter your email address"
-              className="input input-sm input-bordered text-xs rounded-[6px] font-semibold focus:outline-none border-none bg-base-300"
+              className="input input-sm input-bordered text-xs  font-semibold focus:outline-none border-none bg-base-300"
               required
             />
             {emailError && (
@@ -137,7 +137,7 @@ const LoginForm = () => {
               type={showPassword ? "text" : "password"}
               name="password"
               placeholder="Enter your password"
-              className="input input-sm input-bordered text-xs rounded-[6px] font-semibold focus:outline-none border-none bg-base-300"
+              className="input input-sm input-bordered text-xs  font-semibold focus:outline-none border-none bg-base-300"
               required
             />
             <span

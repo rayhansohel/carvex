@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const SpecialOffers = () => {
-
   const offers = [
     {
       id: 1,
@@ -34,7 +33,11 @@ const SpecialOffers = () => {
 
   const cardVariants = {
     hidden: { opacity: 0, x: 200 },
-    visible: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 100 } },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { type: "spring", stiffness: 100 },
+    },
   };
 
   return (
@@ -54,9 +57,12 @@ const SpecialOffers = () => {
           {offers.map((offer, index) => (
             <motion.div
               key={offer.id}
-              className="flex flex-col md:flex-row items-center bg-base-200 rounded-3xl hover:shadow-lg overflow-hidden min-h-80"
+              className="flex flex-col md:flex-row items-center bg-base-200  hover:shadow-lg overflow-hidden min-h-80"
               variants={cardVariants}
-              whileHover={{ scale: 1.03, transition: { type: "spring", stiffness: 400 } }}
+              whileHover={{
+                scale: 1.03,
+                transition: { type: "spring", stiffness: 400 },
+              }}
               initial={{ opacity: 0, x: index % 2 === 0 ? -200 : 200 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ type: "spring", stiffness: 100 }}

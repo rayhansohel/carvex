@@ -88,7 +88,7 @@ const RecentCarListings = () => {
               return (
                 <motion.div
                   key={car._id}
-                  className="flex flex-col md:flex-row items-center bg-base-200 rounded-3xl hover:shadow-lg overflow-hidden"
+                  className="flex flex-col md:flex-row items-center bg-base-200  hover:shadow-lg overflow-hidden"
                   variants={cardVariants}
                   whileHover={{
                     scale: 1.02,

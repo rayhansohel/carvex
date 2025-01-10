@@ -99,7 +99,7 @@ const CarDetails = () => {
 
       <section className="px-4 py-4 md:py-20">
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center bg-base-200 rounded-3xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center bg-base-200 ">
             <div>
               {car.images && car.images.length > 0 ? (
                 car.images.map((image, index) => (
@@ -162,7 +162,7 @@ const CarDetails = () => {
 
       {showBookingModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-base-200 p-8 rounded-3xl shadow-lg w-full max-w-md">
+          <div className="bg-base-200 p-8  shadow-lg w-full max-w-md">
             <h3 className="text-center text-2xl font-bold mb-4">
               Booking Confirmation
             </h3>
@@ -173,7 +173,7 @@ const CarDetails = () => {
             </p>
             <div className="flex justify-center gap-4">
               <button
-                className="btn btn-sm btn-secondary"
+                className="btn btn-sm btn-accent"
                 onClick={handleCloseModal}
               >
                 Cancel

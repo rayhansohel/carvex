@@ -34,6 +34,7 @@
     "react-toastify": "^11.0.2",
     "react-tooltip": "^5.28.0",
     "sort-by": "^1.2.0",
+    "swiper": "^11.2.1",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7"
   },

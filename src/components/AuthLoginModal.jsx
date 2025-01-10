@@ -11,7 +11,7 @@ const AuthLoginModal = ({ isOpen, onClose, onRedirect }) => {
       onClick={onClose}
     >
       <div
-        className="bg-base-300 px-6 py-10 rounded-[40px] max-w-sm w-full flex flex-col justify-center items-center"
+        className="bg-base-300 px-6 py-10 max-w-sm w-full flex flex-col justify-center items-center"
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="text-2xl text-center font-bold ">Please Login</h2>

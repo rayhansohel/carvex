@@ -119,7 +119,7 @@ const CarAddForm = () => {
           <Lottie animationData={loadingAnimation} className="w-32" />
         </div>
       ) : (
-        <div className="max-w-4xl mx-auto bg-base-200 rounded-3xl p-6">
+        <div className="max-w-4xl mx-auto bg-base-200  p-6">
           <h2 className="text-center font-antonio text-2xl mb-4">
             Give Your Car the Care It Deserves!
           </h2>
@@ -137,7 +137,7 @@ const CarAddForm = () => {
                   name="carModel"
                   value={formData.carModel}
                   onChange={handleInputChange}
-                  className="input input-sm input-bordered w-full rounded-[6px] font-semibold focus:outline-none border-none bg-accent"
+                  className="input input-sm input-bordered w-full rounded-lg font-semibold focus:outline-none border-none bg-Secondary"
                   required
                 />
               </div>
@@ -150,7 +150,7 @@ const CarAddForm = () => {
                   name="vehicleRegistrationNumber"
                   value={formData.vehicleRegistrationNumber}
                   onChange={handleInputChange}
-                  className="input input-sm input-bordered w-full rounded-[6px] font-semibold focus:outline-none border-none bg-accent"
+                  className="input input-sm input-bordered w-full rounded-lg font-semibold focus:outline-none border-none bg-Secondary"
                   required
                 />
               </div>
@@ -165,7 +165,7 @@ const CarAddForm = () => {
                   name="dailyRentalPrice"
                   value={formData.dailyRentalPrice}
                   onChange={handleInputChange}
-                  className="input input-sm input-bordered w-full rounded-[6px] font-semibold focus:outline-none border-none bg-accent"
+                  className="input input-sm input-bordered w-full rounded-lg font-semibold focus:outline-none border-none bg-Secondary"
                   required
                 />
               </div>
@@ -175,7 +175,7 @@ const CarAddForm = () => {
                   name="availability"
                   value={formData.availability}
                   onChange={handleInputChange}
-                  className="input input-sm input-bordered w-full rounded-[6px] font-semibold focus:outline-none border-none bg-accent"
+                  className="input input-sm input-bordered w-full rounded-lg font-semibold focus:outline-none border-none bg-Secondary"
                 >
                   <option value={true}>Available</option>
                   <option value={false}>Unavailable</option>
@@ -190,7 +190,7 @@ const CarAddForm = () => {
                   name="features"
                   value={formData.features}
                   onChange={handleInputChange}
-                  className="input input-sm input-bordered w-full rounded-[6px] font-semibold focus:outline-none border-none bg-accent"
+                  className="input input-sm input-bordered w-full rounded-lg font-semibold focus:outline-none border-none bg-Secondary"
                   placeholder="GPS, AC, Sunroof, etc"
                 />
               </div>
@@ -201,7 +201,7 @@ const CarAddForm = () => {
                   name="location"
                   value={formData.location}
                   onChange={handleInputChange}
-                  className="input input-sm input-bordered w-full rounded-[6px] font-semibold focus:outline-none border-none bg-accent"
+                  className="input input-sm input-bordered w-full rounded-lg font-semibold focus:outline-none border-none bg-Secondary"
                   required
                 />
               </div>
@@ -212,7 +212,7 @@ const CarAddForm = () => {
                 name="description"
                 value={formData.description}
                 onChange={handleInputChange}
-                className="textarea textarea-bordered w-full rounded-xl font-semibold focus:outline-none border-none bg-accent"
+                className="textarea textarea-bordered w-full rounded-lg font-semibold focus:outline-none border-none bg-Secondary"
                 rows="4"
               ></textarea>
             </div>
@@ -220,7 +220,12 @@ const CarAddForm = () => {
             {/* Image Upload or URL Input */}
             <div className="mb-4">
               <label className="block font-medium mb-2">
-                Select Image Upload Method <span className="text-secondary" > *If Faild to add car then change the image upload process to via URL</span>
+                Select Image Upload Method{" "}
+                <span className="text-secondary">
+                  {" "}
+                  *If Faild to add car then change the image upload process to
+                  via URL
+                </span>
               </label>
               <select
                 name="imageSource"
@@ -257,13 +262,15 @@ const CarAddForm = () => {
               </div>
             ) : (
               <div>
-                <label className="block font-medium mb-2">Enter Image URL</label>
+                <label className="block font-medium mb-2">
+                  Enter Image URL
+                </label>
                 <input
                   type="url"
                   name="imageUrl"
                   value={formData.imageUrl}
                   onChange={handleInputChange}
-                  className="input input-sm input-bordered w-full rounded-[6px] font-semibold focus:outline-none border-none bg-accent"
+                  className="input input-sm input-bordered w-full rounded-lg font-semibold focus:outline-none border-none bg-Secondary"
                   placeholder="https://example.com/image.jpg"
                 />
               </div>

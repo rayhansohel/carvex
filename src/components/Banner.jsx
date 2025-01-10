@@ -4,11 +4,11 @@ import { motion } from "framer-motion";
 
 const Banner = () => {
   return (
-    <div className="relative w-full h-[650px] bg-black bg-cover bg-center bg-hero">
+    <div className="relative w-full h-[600px] bg-black bg-cover bg-center bg-hero">
       {/* Overlay for readability */}
-      <div className="absolute inset-0 bg-black opacity-60"></div>
+      <div className="absolute  bg-black/70 w-full h-full"></div>
 
-      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white p-6">
+      <div className="relative z-10 flex flex-col items-center  container mx-auto justify-center h-full text-center text-white p-6">
         {/* Motivational Heading with Framer Motion */}
         <motion.h1
           className="font-antonio text-3xl md:text-6xl font-bold mb-4 drop-shadow-lg"
@@ -21,7 +21,7 @@ const Banner = () => {
 
         {/* Brand Logo with Framer Motion */}
         <motion.div
-          className="flex items-center my-4"
+          className="flex items-center my-2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
@@ -41,9 +41,9 @@ const Banner = () => {
         >
           <Link
             to="/available-cars"
-            className="btn btn-sm btn-secondary"
+            className="btn btn-sm btn-accent mt-4"
           >
-            View Available Cars
+            Explore Cars
           </Link>
         </motion.div>
       </div>

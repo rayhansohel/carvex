@@ -35,7 +35,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className="px-4 backdrop-blur bg-accent/50 border-accent">
+    <div className="px-4 backdrop-blur bg-base-300/50  shadow-lg">
       {/* Mobile Dropdown Menu */}
       <div className="lg:hidden fixed top-4 left-4">
         <Dropdown />
@@ -96,7 +96,7 @@ const Navbar = () => {
 
                 {/* Dropdown Menu */}
                 {showDropdown && (
-                  <div className="absolute top-8 right-0 mt-2 w-80 bg-base-200 shadow-lg rounded-xl p-6 z-50">
+                  <div className="absolute top-8 right-0 mt-2 w-80 bg-base-200 shadow-lg  p-6 z-50">
                     <div className="flex items-center justify-center gap-4">
                       <img
                         src={user.photoURL || defaultAvatar}
@@ -126,10 +126,10 @@ const Navbar = () => {
             </NavLink>
           )}
         </div>
-      </div>
-      {/* Theme Toggle buttons */}
-      <div className="fixed top-4 right-4">
-        <ThemeToggle />
+        {/* Theme Toggle buttons */}
+        <div className="ml-2">
+          <ThemeToggle />
+        </div>
       </div>
     </div>
   );
