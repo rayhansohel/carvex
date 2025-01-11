@@ -119,7 +119,7 @@ const CarAddForm = () => {
           <Lottie animationData={loadingAnimation} className="w-32" />
         </div>
       ) : (
-        <div className="max-w-4xl mx-auto bg-base-200  p-6">
+        <div className="max-w-4xl mx-auto bg-base-200 rounded-3xl p-6 md:p-12">
           <h2 className="text-center font-antonio text-2xl mb-4">
             Give Your Car the Care It Deserves!
           </h2>
@@ -221,7 +221,7 @@ const CarAddForm = () => {
             <div className="mb-4">
               <label className="block font-medium mb-2">
                 Select Image Upload Method{" "}
-                <span className="text-secondary">
+                <span className="text-accent">
                   {" "}
                   *If Faild to add car then change the image upload process to
                   via URL
@@ -244,7 +244,7 @@ const CarAddForm = () => {
                 <label className="block font-medium mb-2">Upload Images </label>
                 <div
                   {...getRootProps()}
-                  className="border-2 border-dashed border-accent p-6 rounded-md cursor-pointer text-center"
+                  className="border-2 border-dashed border-secondary p-6 rounded-md cursor-pointer text-center"
                 >
                   <input {...getInputProps()} />
                   <p>Drag & Drop or Click to Select Images</p>
@@ -276,7 +276,7 @@ const CarAddForm = () => {
               </div>
             )}
 
-            <div className="flex items-center justify-center">
+            <div className="flex items-center">
               <button
                 type="submit"
                 className="btn btn-sm btn-primary w-40 mt-4"

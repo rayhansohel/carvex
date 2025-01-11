@@ -56,19 +56,9 @@ const CarDetails = () => {
         <title>{car.carModel} - Car Details</title>
       </Helmet>
 
-      {/* Page Banner */}
-      <div className="relative w-full h-[300px] bg-black bg-cover bg-center bg-car-details">
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white p-6">
-          <h1 className="font-antonio text-3xl md:text-6xl font-bold mb-4 drop-shadow-lg uppercase">
-            {car.carModel}
-          </h1>
-        </div>
-      </div>
-
       <section className="px-4 py-10 md:py-20">
         <div className="container mx-auto">
-          <div className="flex flex-col md:flex-row gap-8">
+          <div className="flex flex-col md:flex-row gap-6 md:gap-20">
             {/* Car Images */}
             <div className="w-full md:w-1/2 max-h-[500px] rounded-3xl overflow-hidden">
               <img
@@ -83,7 +73,7 @@ const CarDetails = () => {
             </div>
 
             {/* Car Details */}
-            <div className="w-full md:w-1/2 flex flex-col gap-4">
+            <div className="w-full md:w-1/2 flex flex-col justify-center gap-4">
               <h2 className="text-5xl font-bold">{car.carModel}</h2>
               <p>
                 <span
@@ -156,7 +146,7 @@ const CarDetails = () => {
             <div className="flex justify-center gap-4 mt-6">
               <button
                 onClick={toggleModal}
-                className="btn btn-sm btn-secondary"
+                className="btn btn-sm btn-accent"
               >
                 Cancel
               </button>
