@@ -189,13 +189,13 @@ const MyBookings = () => {
       {/* Modify Booking Modal */}
       {isModifyModalOpen && selectedBooking && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-base-100 p-6 rounded-3xl">
+          <div className="bg-base-100 p-6 rounded-3xl text-center">
             <h3 className="text-2xl font-bold mb-4">Modify Booking</h3>
             <p>
               <strong>Car Model:</strong> {selectedBooking.carModel}
             </p>
+            <p className="text-sm">Choose new dates</p>
             <div className="mt-4">
-              <label className="text-sm">Choose new dates</label>
               <DatePicker
                 selected={newBookingDates.startDate}
                 onChange={handleDateChange}
@@ -210,7 +210,7 @@ const MyBookings = () => {
             <p className="mt-4">
               <strong>Updated Total Price: </strong>${totalPrice}
             </p>
-            <div className="mt-4 flex justify-between gap-4">
+            <div className="mt-4 flex justify-center gap-4">
               <button
                 onClick={() => setIsModifyModalOpen(false)}
                 className="btn btn-accent btn-sm"
