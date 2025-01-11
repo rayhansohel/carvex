@@ -2,15 +2,26 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import { Helmet } from "react-helmet-async";
-import loadingAnimation from "../assets/animations/Loading.json";
 import Lottie from "lottie-react";
+import loadingAnimation from "../assets/animations/Loading.json";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useAuth } from "../contexts/AuthContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const CarDetails = () => {
+const CarDetails = ({ onBookingConfirmed }) => {
   const { id } = useParams();
+  const { user } = useAuth(); // Access the user from context
   const [car, setCar] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [bookingDates, setBookingDates] = useState({
+    startDate: null,
+    endDate: null,
+  });
+  const [totalCost, setTotalCost] = useState(0);
 
   useEffect(() => {
     const fetchCar = async () => {
@@ -32,6 +43,62 @@ const CarDetails = () => {
 
   const toggleModal = () => {
     setModalOpen(!isModalOpen);
+  };
+
+  const handleDateChange = (dates) => {
+    const [startDate, endDate] = dates;
+    setBookingDates({ startDate, endDate });
+
+    if (startDate && endDate) {
+      const days = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+      const cost = days * car.dailyRentalPrice;
+      setTotalCost(cost);
+    }
+  };
+
+  const handleConfirmBooking = async () => {
+    if (!user) {
+      toast.error("You need to be logged in to book a car.");
+      return;
+    }
+
+    if (!bookingDates.startDate || !bookingDates.endDate) {
+      toast.error("Please select a valid date range.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`https://carvex-server.vercel.app/bookings`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userEmail: user.email,
+          carId: car._id,
+          carModel: car.carModel,
+          dailyRentalPrice: car.dailyRentalPrice,
+          location: car.location,
+          startDate: bookingDates.startDate,
+          endDate: bookingDates.endDate,
+          totalCost,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to confirm booking");
+      }
+
+      if (onBookingConfirmed) {
+        onBookingConfirmed();
+      }
+
+      toggleModal();
+      toast.success("Booking confirmed successfully!");
+    } catch (error) {
+      console.error("Error confirming booking", error);
+      toast.error("Error confirming booking. Please try again.");
+    }
   };
 
   if (loading) {
@@ -86,7 +153,7 @@ const CarDetails = () => {
                   {car.availability ? "Available" : "Not Available"}
                 </span>
               </p>
-              <p >
+              <p>
                 <strong>Location:</strong> {car.location}
               </p>
               <p>
@@ -96,8 +163,6 @@ const CarDetails = () => {
                 <strong>Features:</strong>{" "}
                 {Array.isArray(car.features)
                   ? car.features.join(", ")
-                  : typeof car.features === "string"
-                  ? car.features
                   : "No features available."}
               </p>
               <p>
@@ -139,10 +204,30 @@ const CarDetails = () => {
               <strong>Features:</strong>{" "}
               {Array.isArray(car.features)
                 ? car.features.join(", ")
-                : typeof car.features === "string"
-                ? car.features
                 : "No features available."}
             </p>
+
+            {/* Date Range Picker */}
+            <div className="mt-4">
+              <DatePicker
+                selected={bookingDates.startDate}
+                onChange={handleDateChange}
+                startDate={bookingDates.startDate}
+                endDate={bookingDates.endDate}
+                selectsRange
+                inline
+                minDate={new Date()}
+                dateFormat="yyyy/MM/dd"
+              />
+            </div>
+
+            {/* Total Cost */}
+            {bookingDates.startDate && bookingDates.endDate && (
+              <p className="mt-4">
+                <strong>Total Cost:</strong> ${totalCost}
+              </p>
+            )}
+
             <div className="flex justify-center gap-4 mt-6">
               <button
                 onClick={toggleModal}
@@ -150,7 +235,9 @@ const CarDetails = () => {
               >
                 Cancel
               </button>
-              <button className="btn btn-sm btn-primary">Confirm Booking</button>
+              <button onClick={handleConfirmBooking} className="btn btn-sm btn-primary">
+                Confirm Booking
+              </button>
             </div>
           </div>
         </div>

@@ -70,7 +70,7 @@ const UpdateCarModal = ({ car, onClose, onCarUpdated }) => {
   };
 
   if (!car) {
-    return null; // Do not render the modal if car is null or undefined
+    return null;
   }
 
   return (

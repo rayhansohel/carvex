@@ -99,7 +99,7 @@ const Navbar = () => {
 
                 {/* Dropdown Menu */}
                 {showDropdown && (
-                  <div className="absolute top-8 right-0 mt-2 w-80 bg-base-200 shadow-lg  p-6 z-50">
+                  <div className="absolute top-8 right-0 mt-2 w-80 bg-base-200 shadow-lg rounded-2xl p-6 z-50">
                     <div className="flex items-center justify-center gap-4">
                       <img
                         src={user.photoURL || defaultAvatar}

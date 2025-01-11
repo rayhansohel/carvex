@@ -51,7 +51,7 @@ const Dropdown = () => {
 
       {isOpen && (
         <div className=" absolute top-12 left-0 min-w-40 max-w-[350px] shadow-lg">
-          <div className="p-4 bg-base-200 rounded-box">
+          <div className="p-4 bg-base-200 rounded-2xl">
             <div className="space-y-2">
               {/* Pass closeDropdown to MenuItems */}
               <Menu closeDropdown={closeDropdown} />
