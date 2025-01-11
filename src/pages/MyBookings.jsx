@@ -65,19 +65,22 @@ const MyBookings = () => {
     })
       .then((response) => response.json())
       .then(() => {
-        // Remove the booking from the state (UI)
         setBookings((prevBookings) =>
           prevBookings.filter((booking) => booking.id !== bookingId)
         );
         toast.success("Booking deleted successfully");
-        setIsDeleteModalOpen(false); // Close the delete confirmation modal
+        setIsDeleteModalOpen(false);
       })
       .catch((error) => {
         console.error("Error deleting booking:", error);
         toast.error("Failed to delete booking");
       });
   };
-  
+
+  const handleSaveChanges = () => {
+    toast.success("Booking updated successfully");
+    setIsModifyModalOpen(false);
+  };
 
   if (isLoading) {
     return (
@@ -118,9 +121,9 @@ const MyBookings = () => {
                 <thead className="bg-base-200">
                   <tr>
                     <th>Car Model</th>
-                    <th>Total Days</th>
-                    <th>Total Price</th>
-                    <th>Booking Status</th>
+                    <th className="hidden md:table-cell">Total Days</th>
+                    <th className="hidden sm:table-cell">Total Price</th>
+                    <th className="hidden lg:table-cell">Booking Status</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -138,13 +141,13 @@ const MyBookings = () => {
                     return (
                       <tr key={booking.id}>
                         <td>{booking.carModel}</td>
-                        <td>
+                        <td className="hidden md:table-cell">
                           {totalDays !== null
                             ? `${totalDays} days`
                             : "Invalid Dates"}
                         </td>
-                        <td>{booking.totalPrice}</td>
-                        <td>
+                        <td className="hidden sm:table-cell">{booking.totalPrice}</td>
+                        <td className="hidden lg:table-cell">
                           {booking.bookingStatus === "Confirmed" ? (
                             <span className="badge badge-success">Confirmed</span>
                           ) : booking.bookingStatus === "Pending" ? (

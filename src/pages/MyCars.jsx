@@ -8,7 +8,7 @@ import { Helmet } from "react-helmet-async";
 import UpdateCarModal from "../components/UpdateCarModal";
 
 const MyCarsPage = () => {
-  const { user } = useAuth();
+  const { user } = useAuth(); // Assuming the user is fetched from Firebase Auth context
   const [cars, setCars] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [sortOption, setSortOption] = useState("dateNewest");
