@@ -1,189 +1,166 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import moment from "moment";
 import { Helmet } from "react-helmet-async";
-import { motion } from "framer-motion";
+import loadingAnimation from "../assets/animations/Loading.json";
+import Lottie from "lottie-react";
 
 const CarDetails = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [car, setCar] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showBookingModal, setShowBookingModal] = useState(false);
-
-  console.log("Car ID from URL:", id);
+  const [isModalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
-    const fetchCarDetails = async () => {
+    const fetchCar = async () => {
       try {
-        const response = await fetch(
-          `https://carvex-server.vercel.app/cars/${id}`
-        );
+        const response = await fetch(`https://carvex-server.vercel.app/cars/${id}`);
         if (!response.ok) {
-          throw new Error(
-            `Failed to fetch car details: ${response.statusText}`
-          );
+          throw new Error("Failed to fetch car details");
         }
         const data = await response.json();
-        console.log("Fetched car data:", data);
         setCar(data);
       } catch (err) {
-        console.error("Error fetching car details:", err);
         setError(err.message);
       } finally {
         setLoading(false);
       }
     };
-
-    fetchCarDetails();
+    fetchCar();
   }, [id]);
 
-  const handleBookNow = () => {
-    setShowBookingModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowBookingModal(false);
-  };
-
-  const handleConfirmBooking = () => {
-    // Placeholder for booking logic
-    setShowBookingModal(false);
-    navigate("/booking-confirmation");
+  const toggleModal = () => {
+    setModalOpen(!isModalOpen);
   };
 
   if (loading) {
     return (
-      <div className="flex justify-center mb-4">
-        <p>Loading...</p>
+      <div className="flex justify-center py-20">
+        <Lottie animationData={loadingAnimation} className="w-32" />
       </div>
     );
   }
 
   if (error) {
-    return (
-      <div className="flex justify-center">
-        <p className="text-lg text-red-500">Error: {error}</p>
-      </div>
-    );
+    return <p className="text-lg text-red-500">Error: {error}</p>;
   }
 
   if (!car) {
-    return (
-      <div className="flex justify-center">
-        <p className="text-lg">Car not found.</p>
-      </div>
-    );
+    return <p className="text-lg text-gray-500">Car details not found.</p>;
   }
 
   return (
     <div>
       <Helmet>
-        <title>{car.carModel} - Carvex</title>
+        <title>{car.carModel} - Car Details</title>
       </Helmet>
 
       {/* Page Banner */}
-      <div className="relative w-full h-[300px] bg-black bg-cover bg-center bg-cardetails">
+      <div className="relative w-full h-[300px] bg-black bg-cover bg-center bg-car-details">
         <div className="absolute inset-0 bg-black opacity-50"></div>
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white p-6">
-          <motion.h1
-            className="font-antonio text-3xl md:text-6xl font-bold mb-4 drop-shadow-lg uppercase"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.2 }}
-          >
+          <h1 className="font-antonio text-3xl md:text-6xl font-bold mb-4 drop-shadow-lg uppercase">
             {car.carModel}
-          </motion.h1>
+          </h1>
         </div>
       </div>
 
-      <section className="px-4 py-4 md:py-20">
+      <section className="px-4 py-10 md:py-20">
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center bg-base-200 ">
-            <div>
-              {car.images && car.images.length > 0 ? (
-                car.images.map((image, index) => (
-                  <div key={index}>
-                    <img
-                      src={`https://carvex-server.vercel.app/${image}`}
-                      alt={`${car.carModel} - Image ${index + 1}`}
-                      className="w-full max-h-[400px] object-cover rounded-l-3xl"
-                    />
-                  </div>
-                ))
-              ) : car.imageUrl ? (
-                <div>
-                  <img
-                    src={car.imageUrl}
-                    alt={`${car.carModel} - Default Image`}
-                    className="w-full max-h-[400px] object-cover rounded-l-3xl"
-                  />
-                </div>
-              ) : (
-                <div>
-                  <p className="text-center">No images available</p>
-                </div>
-              )}
+          <div className="flex flex-col md:flex-row gap-8">
+            {/* Car Images */}
+            <div className="w-full md:w-1/2 max-h-[500px] rounded-3xl overflow-hidden">
+              <img
+                src={
+                  car.images?.length > 0
+                    ? `https://carvex-server.vercel.app/${car.images[0]}`
+                    : car.imageUrl
+                }
+                alt={car.carModel}
+                className="w-full h-full object-cover"
+              />
             </div>
 
-            <div>
-              <h2 className="text-2xl md:text-4xl font-bold mb-4">
-                {car.carModel}
-              </h2>
-              <p className="text-xl text-secondary font-semibold mb-2">
-                ${car.dailyRentalPrice}/day
-              </p>
-              <p className="mb-4">
+            {/* Car Details */}
+            <div className="w-full md:w-1/2 flex flex-col gap-4">
+              <h2 className="text-5xl font-bold">{car.carModel}</h2>
+              <p>
                 <span
                   className={`badge ${
                     car.availability
                       ? "bg-green-500 text-white"
-                      : "bg-secondary text-white"
+                      : "bg-red-500 text-white"
                   }`}
                 >
                   {car.availability ? "Available" : "Not Available"}
                 </span>
               </p>
-              <h3 className="text-xl font-bold mb-2">Features</h3>
-              <p className="mb-4">{car.features}</p>
-              <h3 className="text-xl font-bold mb-2">Description</h3>
-              <p className="mb-4">{car.description}</p>
-              <button
-                className="btn btn-sm btn-primary"
-                onClick={handleBookNow}
-                disabled={!car.availability}
-              >
-                Book Now
-              </button>
+              <p >
+                <strong>Location:</strong> {car.location}
+              </p>
+              <p>
+                <strong>Price Per Day:</strong> ${car.dailyRentalPrice}/day
+              </p>
+              <p>
+                <strong>Features:</strong>{" "}
+                {Array.isArray(car.features)
+                  ? car.features.join(", ")
+                  : typeof car.features === "string"
+                  ? car.features
+                  : "No features available."}
+              </p>
+              <p>
+                <strong>Description:</strong> {car.description || "No description provided."}
+              </p>
+              <p>
+                <strong>Published:</strong> {moment(car.createdAt).fromNow()}
+              </p>
+
+              {/* Book Now Button */}
+              {car.availability && (
+                <button
+                  onClick={toggleModal}
+                  className="btn btn-sm btn-primary mt-4 w-fit"
+                >
+                  Book Now
+                </button>
+              )}
             </div>
           </div>
         </div>
       </section>
 
-      {showBookingModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-base-200 p-8  shadow-lg w-full max-w-md">
-            <h3 className="text-center text-2xl font-bold mb-4">
-              Booking Confirmation
-            </h3>
-            <p className="text-center mb-4">
-              You are about to book the {car.carModel} for $
-              {car.dailyRentalPrice}
-              /day.
+      {/* Booking Confirmation Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-base-100 rounded-3xl p-8 text-center w-full max-w-sm">
+            <h2 className="text-2xl font-bold mb-4">Booking Confirmation</h2>
+            <p>
+              <strong>Model:</strong> {car.carModel}
             </p>
-            <div className="flex justify-center gap-4">
+            <p>
+              <strong>Price Per Day:</strong> ${car.dailyRentalPrice}
+            </p>
+            <p>
+              <strong>Location:</strong> {car.location}
+            </p>
+            <p>
+              <strong>Features:</strong>{" "}
+              {Array.isArray(car.features)
+                ? car.features.join(", ")
+                : typeof car.features === "string"
+                ? car.features
+                : "No features available."}
+            </p>
+            <div className="flex justify-center gap-4 mt-6">
               <button
-                className="btn btn-sm btn-accent"
-                onClick={handleCloseModal}
+                onClick={toggleModal}
+                className="btn btn-sm btn-secondary"
               >
                 Cancel
               </button>
-              <button
-                className="btn btn-sm btn-primary"
-                onClick={handleConfirmBooking}
-              >
-                Confirm Booking
-              </button>
+              <button className="btn btn-sm btn-primary">Confirm Booking</button>
             </div>
           </div>
         </div>

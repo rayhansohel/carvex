@@ -198,7 +198,7 @@ const AvailableCars = () => {
                     <p>Published: {moment(car.createdAt).fromNow()}</p>
                     <div className="flex">
                       <Link
-                        to={`/cars/${car._id}`}
+                        to={`/cars/${car._id}`} 
                         className="btn btn-sm btn-primary mt-4"
                       >
                         View Details
