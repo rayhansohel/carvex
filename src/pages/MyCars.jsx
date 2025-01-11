@@ -1,81 +1,94 @@
 import { useState, useEffect } from "react";
-import { Helmet } from "react-helmet-async";
-import { motion } from "framer-motion";
-import { toast } from "react-toastify";
 import { useAuth } from "../contexts/AuthContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Lottie from "lottie-react";
+import loadingAnimation from "../assets/animations/Loading.json";
+import { Helmet } from "react-helmet-async";
+import UpdateCarModal from "../components/UpdateCarModal";
 
-const MyCars = () => {
+const MyCarsPage = () => {
+  const { user } = useAuth();
   const [cars, setCars] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editCar, setEditCar] = useState(null);
-  const [sortBy, setSortBy] = useState("date"); // Sort by default to date
-  const { user } = useAuth(); // Get the logged-in user's details
+  const [isLoading, setIsLoading] = useState(true);
+  const [sortOption, setSortOption] = useState("dateNewest");
+  const [selectedCar, setSelectedCar] = useState(null);
 
-  // Fetch the cars added by the logged-in user
+  // Fetch cars added by the user
   useEffect(() => {
     const fetchCars = async () => {
-      if (!user?.email) return; // Ensure user is logged in
+      if (!user?.email) {
+        toast.error("User not authenticated!");
+        return;
+      }
 
       try {
         const response = await fetch(
-          `https://carvex-server.vercel.app/cars?email=${user.email}`
+          `https://carvex-server.vercel.app/cars/user/${user.email}`
         );
-        const data = await response.json();
-
-        if (response.ok) {
-          setCars(data);
-        } else {
-          toast.error("Failed to fetch your cars");
+        if (!response.ok) {
+          throw new Error("Failed to fetch cars");
         }
+        const data = await response.json();
+        setCars(data);
       } catch (error) {
-        toast.error("Error fetching cars");
-        console.error("Fetch Cars Error:", error);
+        console.error("Failed to fetch cars:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    fetchCars();
-  }, [user?.email]);
+    if (user?.email) {
+      fetchCars();
+    }
+  }, [user]);
 
-  // Handle updating car data
-  const handleUpdate = (car) => {
-    setEditCar(car);
-    setIsModalOpen(true);
-  };
-
-  // Handle deleting a car
+  // Handle car deletion
   const handleDelete = async (carId) => {
-    const confirmation = window.confirm(
-      "Are you sure you want to delete this car?"
-    );
-    if (confirmation) {
-      try {
-        const response = await fetch(`/api/cars/${carId}`, {
-          method: "DELETE",
-        });
-        if (response.ok) {
-          toast.success("Car deleted successfully");
-          setCars(cars.filter((car) => car.id !== carId));
-        } else {
-          toast.error("Failed to delete car");
-        }
-      } catch (error) {
-        toast.error("Error deleting car");
-        console.error("Delete Car Error:", error);
+    const confirm = window.confirm("Are you sure you want to delete this car?");
+    if (!confirm) return;
+
+    try {
+      const response = await fetch(
+        `https://carvex-server.vercel.app/cars/${carId}`,
+        { method: "DELETE" }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete car");
       }
+
+      setCars((prevCars) => prevCars.filter((car) => car._id !== carId));
+      toast.success("Car deleted successfully!");
+    } catch (error) {
+      console.error("Failed to delete car", error);
+      toast.error("Failed to delete car. Please try again.");
     }
   };
 
-  // Sorting functionality
-  const handleSort = (key) => {
-    setSortBy(key);
+  // Handle sorting
+  const handleSort = (option) => {
+    setSortOption(option);
     const sortedCars = [...cars];
-    if (key === "date") {
-      sortedCars.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
-    } else if (key === "price") {
+    if (option === "dateNewest") {
+      sortedCars.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    } else if (option === "dateOldest") {
+      sortedCars.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+    } else if (option === "priceLowest") {
       sortedCars.sort((a, b) => a.dailyRentalPrice - b.dailyRentalPrice);
+    } else if (option === "priceHighest") {
+      sortedCars.sort((a, b) => b.dailyRentalPrice - a.dailyRentalPrice);
     }
     setCars(sortedCars);
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Lottie animationData={loadingAnimation} className="w-40" />
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -83,109 +96,111 @@ const MyCars = () => {
         <title>My Cars - Carvex</title>
       </Helmet>
 
-      {/* Page Banner */}
+      {/* Page Banner*/}
       <div className="relative w-full h-[300px] bg-black bg-cover bg-center bg-mycars">
+        {/* Overlay for readability */}
         <div className="absolute inset-0 bg-black opacity-50"></div>
+
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white p-6">
-          <motion.h1
-            className="font-antonio text-3xl md:text-6xl font-bold mb-4 drop-shadow-lg uppercase"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.2 }}
-          >
+          {/* Motivational Heading with Framer Motion */}
+          <h1 className="font-antonio text-3xl md:text-6xl font-bold mb-4 drop-shadow-lg uppercase">
             My Cars
-          </motion.h1>
+          </h1>
         </div>
       </div>
 
-      <div className="px-4 py-4 md:py-20">
-        <div className="container mx-auto">
-          {/* If no cars are added */}
-          {cars.length === 0 && (
-            <div className="text-center">
-              <p>No cars added yet.</p>
-              <a href="/add-car" className="btn btn-sm btn-secondary mt-4">
-                Click here to add a car
-              </a>
-            </div>
-          )}
-
-          {/* Car Management Table */}
-          <div className="mt-6 px-4">
-            <div className="mb-4 flex justify-end">
-              <button
-                onClick={() => handleSort("date")}
-                className="btn btn-sm px-4 py-2 rounded-md"
-              >
-                Sort by Date
-              </button>
-              <button
-                onClick={() => handleSort("price")}
-                className="btn btn-sm px-4 py-2 rounded-md ml-2"
-              >
-                Sort by Price
-              </button>
-            </div>
-
-            <table className="min-w-full bg-base-200  p-6">
-              <thead className="border border-accent">
-                <tr className=" bg-base-300">
-                  <th className="px-6 py-3 text-left ">Car Image</th>
-                  <th className="px-6 py-3 text-left ">Car Model</th>
-                  <th className="px-6 py-3 text-left ">Daily Rental Price</th>
-                  <th className="px-6 py-3 text-left ">Booking Count</th>
-                  <th className="px-6 py-3 text-left ">Availability</th>
-                  <th className="px-6 py-3 text-left ">Date Added</th>
-                  <th className="px-6 py-3 text-left ">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {cars.map((car) => (
-                  <tr
-                    key={car.id}
-                    className="border-y border-base-100 roynded-3xl  "
-                  >
-                    <td className="px-6 py-4">
-                      <img
-                        src={
-                          car.images.length > 0
-                            ? `https://carvex-server.vercel.app/${car.images[0]}`
-                            : car.imageUrl
-                        }
-                        alt={car.model}
-                        className="w-12 h-12  object-cover"
-                      />
-                    </td>
-                    <td className="px-6 py-4">{car.model}</td>
-                    <td className="px-6 py-4">${car.dailyRentalPrice}</td>
-                    <td className="px-6 py-4">{car.bookingCount}</td>
-                    <td className="px-6 py-4">{car.availability}</td>
-                    <td className="px-6 py-4">
-                      {new Date(car.dateAdded).toLocaleDateString()}
-                    </td>
-                    <td className="px-6 py-4">
-                      <button
-                        onClick={() => handleUpdate(car)}
-                        className="btn-primary btn btn-sm mr-2"
-                      >
-                        Update
-                      </button>
-                      <button
-                        onClick={() => handleDelete(car.id)}
-                        className="btn-accent btn btn-sm"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+      <div className="px-4 py-6 md:py-20">
+        {cars.length === 0 ? (
+          <div className="text-center">
+            <p className="mt-4">You haven't added any cars yet.</p>
+            <a href="/add-car" className="btn btn-sm btn-primary mt-4">
+              Add Your First Car
+            </a>
           </div>
-        </div>
+        ) : (
+          <div className="max-w-7xl mx-auto">
+            <div className="flex justify-end mb-4">
+              <select
+                value={sortOption}
+                onChange={(e) => handleSort(e.target.value)}
+                className="select select-sm rounded-full select-bordered bg-base-200"
+              >
+                <option value="dateNewest">Date Added (Newest First)</option>
+                <option value="dateOldest">Date Added (Oldest First)</option>
+                <option value="priceLowest">Price (Lowest First)</option>
+                <option value="priceHighest">Price (Highest First)</option>
+              </select>
+            </div>
+            <div className="bg-base-300 rounded-3xl overflow-hidden">
+              <table className="table w-full">
+                <thead className="bg-base-200">
+                  <tr>
+                    <th>Car Model</th>
+                    <th className="hidden lg:table-cell">Daily Rental</th>
+                    <th className="hidden lg:table-cell">Booking Count</th>
+                    <th>Availability</th>
+                    <th className="hidden lg:table-cell">Date Added</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {cars.map((car) => (
+                    <tr key={car._id}>
+                      <td>{car.carModel}</td>
+                      <td className="hidden lg:table-cell">
+                        ${car.dailyRentalPrice}
+                      </td>
+                      <td className="hidden lg:table-cell">
+                        {car.bookingCount}
+                      </td>
+                      <td>
+                        {car.availability ? (
+                          <span className="badge badge-success">Available</span>
+                        ) : (
+                          <span className="badge badge-error">Unavailable</span>
+                        )}
+                      </td>
+                      <td className="hidden lg:table-cell">
+                        {new Date(car.createdAt).toLocaleDateString()}
+                      </td>
+                      <td className="flex gap-2">
+                        <button
+                          className="btn btn-sm btn-primary"
+                          onClick={() => setSelectedCar(car)}
+                        >
+                          Update
+                        </button>
+                        <button
+                          className="btn btn-sm btn-accent"
+                          onClick={() => handleDelete(car._id)}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Update Modal */}
+            <UpdateCarModal
+              car={selectedCar}
+              onClose={() => setSelectedCar(null)}
+              onCarUpdated={(updatedCar) => {
+                setCars((prevCars) =>
+                  prevCars.map((car) =>
+                    car._id === updatedCar._id ? updatedCar : car
+                  )
+                );
+                setSelectedCar(null);
+              }}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default MyCars;
+export default MyCarsPage;

@@ -52,7 +52,7 @@ const AvailableCars = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center py-20">
+      <div className="flex justify-center items-center h-screen">
         <Lottie animationData={loadingAnimation} className="w-32" />
       </div>
     );
