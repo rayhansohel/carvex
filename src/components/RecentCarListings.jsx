@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Lottie from "lottie-react";
 import loadingAnimation from "../assets/animations/Loading.json";
-import moment from "moment";
 
 const RecentCarListings = () => {
   const [cars, setCars] = useState([]);
@@ -33,7 +32,7 @@ const RecentCarListings = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center mb-4 w-full h-full">
+      <div className="flex justify-center py-20">
         <Lottie animationData={loadingAnimation} className="w-32" />
       </div>
     );
@@ -52,7 +51,7 @@ const RecentCarListings = () => {
 
         {cars.length === 0 ? (
           <p className="text-center text-lg text-gray-500">
-            No cars available at the moment.
+            No cars available.
           </p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-8 w-full">
@@ -62,33 +61,25 @@ const RecentCarListings = () => {
               return (
                 <div
                   key={car._id}
-                  className="flex flex-col bg-base-200 rounded-3xl items-center hover:shadow-lg overflow-hidden"
+                  className="flex flex-col bg-base-200 rounded-3xl hover:shadow-lg overflow-hidden"
                 >
-                  <img
-                    src={
-                      car.images.length > 0
-                        ? `https://carvex-server.vercel.app/${car.images[0]}`
-                        : car.imageUrl
-                    }
-                    alt={car.carModel}
-                    className="w-full object-cover"
-                  />
-                  <div className="p-4 flex flex-col justify-between w-full h-full gap-1">
-                    <h3 className="text-xl font-semibold">
+                  <div className="max-h-40 object-cover">
+                    <img
+                      src={
+                        car.images.length > 0
+                          ? `https://carvex-server.vercel.app/${car.images[0]}`
+                          : car.imageUrl
+                      }
+                      alt={car.carModel}
+                      className="w-full h-full"
+                    />
+                  </div>
+                  <div className="p-4 flex flex-col justify-between w-full gap-1">
+                    <h3 className="text-xl font-semibold mb-2">
                       {car.carModel}
                     </h3>
                     <p>${car.dailyRentalPrice}/day</p>
-                    <div className="flex items-center">
-                      <span
-                        className={`badge ${
-                          isAvailable
-                            ? "bg-green-500 text-white"
-                            : "bg-red-500 text-white"
-                        }`}
-                      >
-                        {isAvailable ? "Available" : "Not Available"}
-                      </span>
-                    </div>
+                    <p>Bookings: {car.bookingCount}</p>
                     <div className="flex">
                       <Link
                         to={`/cars/${car._id}`}

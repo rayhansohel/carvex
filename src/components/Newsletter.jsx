@@ -13,8 +13,8 @@ const Newsletter = () => {
           </div>
   
           <div className="flex justify-center">
-            <div className="max-w-md w-full">
-              <div className="flex flex-col md:flex-row items-center bg-base-100 p-6 rounded-box shadow-xl shadow-primary-100">
+            <div className="max-w-3xl w-full">
+              <div className="flex flex-col md:flex-row items-center bg-base-100 p-6 rounded-full">
               <div className="flex w-full">
                 <input
                   type="email"
