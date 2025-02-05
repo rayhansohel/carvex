@@ -1,6 +1,8 @@
+<div align="center">
+  <img height="" src="https://github.com/rayhansohel/carvex/blob/main/src/assets/others/carvex.png"  />
+</div>
 
 <img src="src/assets/carvex-logo/caevex-text-logo-light.png" alt="Carvex Logo" width="100px">
-
 
 # CARVEX-The Road is Open, Let’s Go
 
