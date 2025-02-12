@@ -13,7 +13,7 @@ const Footer = () => {
     <div className="text-center bg-base-300 px-4">
       <div className="space-y-4">
         <div className="container mx-auto lg:flex lg:pt-10 pb-4 items-center justify-between">
-          <div className="p-6 flex-[0.3]">
+          <div className="p-6 flex-[0.3] lg:border-x border-base-200">
             <div className="flex items-center justify-center">
               <Link to="/">
                 <div className="flex items-center justify-center col-span-2">
@@ -34,7 +34,6 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="flex-[0] mx-12 border-b lg:border-l border-base-100 lg:h-32"></div>
 
           <div className="flex-[0.4] p-6">
             <div>
@@ -46,9 +45,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="flex-[0.0] mx-12 border-b lg:border-l border-base-100 lg:h-32"></div>
-
-          <div className="p-6 flex-[0.3]">
+          <div className="p-6 flex-[0.3] lg:border-x border-base-200">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-xl font-semibold mb-2">Social links</h2>
 
@@ -60,7 +57,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="container mx-auto border-t border-base-100">
+        <div className="container mx-auto border-t border-base-200">
           <p className="p-4">
             © {new Date().getFullYear()}{" "}
             <Link to="/" className="text-accent font-semibold">
