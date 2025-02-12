@@ -9,6 +9,7 @@ module.exports = {
       },
       backgroundImage: {
         addcar: "url('https://i.ibb.co.com/q5ztbCd/4.png')",
+        aboutus: "url('https://i.ibb.co.com/2KCLs97/Back-red-background-audi.jpg')",
         availablecar: "url('https://i.ibb.co.com/0hdZn3C/19.jpg')",
         cardetails: "url('https://i.ibb.co.com/NKVm7yn/1.png')",
         hero: "url('https://i.ibb.co.com/dKQGk3K/3.png')",
