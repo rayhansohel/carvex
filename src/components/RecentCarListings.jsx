@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Lottie from "lottie-react";
@@ -63,7 +64,7 @@ const RecentCarListings = () => {
                   key={car._id}
                   className="flex flex-col bg-base-200 rounded-3xl hover:shadow-lg overflow-hidden"
                 >
-                  <div className="max-h-40 object-cover">
+                  <div className="object-cover">
                     <img
                       src={
                         car.images.length > 0
@@ -71,7 +72,7 @@ const RecentCarListings = () => {
                           : car.imageUrl
                       }
                       alt={car.carModel}
-                      className="w-full h-full"
+                      className="object-cover"
                     />
                   </div>
                   <div className="p-4 flex flex-col justify-between w-full gap-1">
@@ -79,7 +80,6 @@ const RecentCarListings = () => {
                       {car.carModel}
                     </h3>
                     <p>${car.dailyRentalPrice}/day</p>
-                    <p>Bookings: {car.bookingCount}</p>
                     <div className="flex">
                       <Link
                         to={`/cars/${car._id}`} 

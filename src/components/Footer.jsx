@@ -34,7 +34,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="flex-[0] mx-12 border-b lg:border-l border-base-200 lg:h-32"></div>
+          <div className="flex-[0] mx-12 border-b lg:border-l border-base-100 lg:h-32"></div>
 
           <div className="flex-[0.4] p-6">
             <div>
@@ -46,7 +46,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="flex-[0.0] mx-12 border-b lg:border-l border-base-200 lg:h-32"></div>
+          <div className="flex-[0.0] mx-12 border-b lg:border-l border-base-100 lg:h-32"></div>
 
           <div className="p-6 flex-[0.3]">
             <div className="max-w-4xl mx-auto">
@@ -60,7 +60,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="container mx-auto border-t border-base-200">
+        <div className="container mx-auto border-t border-base-100">
           <p className="p-4">
             © {new Date().getFullYear()}{" "}
             <Link to="/" className="text-accent font-semibold">

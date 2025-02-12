@@ -115,7 +115,7 @@ const MyBookings = () => {
             <p className="mt-4">You have no bookings yet.</p>
           </div>
         ) : (
-          <div className="max-w-7xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             <div className="bg-base-300 rounded-3xl overflow-hidden">
               <table className="table w-full">
                 <thead className="bg-base-200">
