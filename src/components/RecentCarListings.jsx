@@ -64,7 +64,7 @@ const RecentCarListings = () => {
                   key={car._id}
                   className="flex flex-col bg-base-200 rounded-3xl hover:shadow-lg overflow-hidden"
                 >
-                  <div className="object-cover">
+                  <div className="w-full max-h-48">
                     <img
                       src={
                         car.images.length > 0
@@ -72,7 +72,7 @@ const RecentCarListings = () => {
                           : car.imageUrl
                       }
                       alt={car.carModel}
-                      className="object-cover"
+                      className="w-full h-full object-cover"
                     />
                   </div>
                   <div className="p-4 flex flex-col justify-between w-full gap-1">
