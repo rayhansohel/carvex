@@ -11,6 +11,7 @@ import Register from "../pages/Register";
 import MyBookings from "../pages/MyBookings";
 import CarDetails from "../pages/CarDetails";
 import AuthLayout from "../layouts/AuthLayout";
+import About from "../pages/About";
 
 const Routes = createBrowserRouter([
 
@@ -27,6 +28,10 @@ const Routes = createBrowserRouter([
       {
         path: "/available-cars",
         element: <AvailableCars />,
+      },
+      {
+        path: "/about",
+        element: <About />,
       },
       {
         path: "/add-car",

@@ -67,6 +67,17 @@ const Menu = () => {
           </NavLink>
         </>
       ) : null}
+
+      <NavLink
+        to="/about"
+        className={({ isActive }) =>
+          `btn btn-sm w-full bg-transparent border-none shadow-none whitespace-nowrap  ${
+            isActive ? "text-[#ff0055]" : "transition"
+          }`
+        }
+      >
+        About Us
+      </NavLink>
     </>
   );
 };
