@@ -16,11 +16,11 @@ const MyBookings = () => {
     startDate: null,
     endDate: null,
   });
-  const [totalPrice, setTotalPrice] = useState(0); // State for storing updated price
+  const [totalPrice, setTotalPrice] = useState(0);
   const [isModifyModalOpen, setIsModifyModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState(null);
-  const pricePerDay = 50; // Set your price per day
+  const pricePerDay = 50;
 
   // Fetch user bookings
   useEffect(() => {
@@ -43,12 +43,10 @@ const MyBookings = () => {
       });
   }, [user]);
 
-  // Utility function to check if a date is valid
   const isValidDate = (date) => {
     return date instanceof Date && !isNaN(date);
   };
 
-  // Handle Date Picker Change and Recalculate Price
   const handleDateChange = (dates) => {
     const [startDate, endDate] = dates;
     if (startDate && endDate) {

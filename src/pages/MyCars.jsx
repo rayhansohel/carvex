@@ -8,13 +8,14 @@ import { Helmet } from "react-helmet-async";
 import UpdateCarModal from "../components/UpdateCarModal";
 
 const MyCarsPage = () => {
-  const { user } = useAuth(); // Assuming the user is fetched from Firebase Auth context
+  const { user } = useAuth();
   const [cars, setCars] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [sortOption, setSortOption] = useState("dateNewest");
   const [selectedCar, setSelectedCar] = useState(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [carToDelete, setCarToDelete] = useState(null);
 
-  // Fetch cars added by the user
   useEffect(() => {
     const fetchCars = async () => {
       if (!user?.email) {
@@ -43,14 +44,12 @@ const MyCarsPage = () => {
     }
   }, [user]);
 
-  // Handle car deletion
-  const handleDelete = async (carId) => {
-    const confirm = window.confirm("Are you sure you want to delete this car?");
-    if (!confirm) return;
+  const handleDelete = async () => {
+    if (!carToDelete) return;
 
     try {
       const response = await fetch(
-        `https://carvex-server.vercel.app/cars/${carId}`,
+        `https://carvex-server.vercel.app/cars/${carToDelete._id}`,
         { method: "DELETE" }
       );
 
@@ -58,28 +57,14 @@ const MyCarsPage = () => {
         throw new Error("Failed to delete car");
       }
 
-      setCars((prevCars) => prevCars.filter((car) => car._id !== carId));
+      setCars((prevCars) => prevCars.filter((car) => car._id !== carToDelete._id));
       toast.success("Car deleted successfully!");
+      setIsDeleteModalOpen(false);
+      setCarToDelete(null);
     } catch (error) {
       console.error("Failed to delete car", error);
       toast.error("Failed to delete car. Please try again.");
     }
-  };
-
-  // Handle sorting
-  const handleSort = (option) => {
-    setSortOption(option);
-    const sortedCars = [...cars];
-    if (option === "dateNewest") {
-      sortedCars.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    } else if (option === "dateOldest") {
-      sortedCars.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-    } else if (option === "priceLowest") {
-      sortedCars.sort((a, b) => a.dailyRentalPrice - b.dailyRentalPrice);
-    } else if (option === "priceHighest") {
-      sortedCars.sort((a, b) => b.dailyRentalPrice - a.dailyRentalPrice);
-    }
-    setCars(sortedCars);
   };
 
   if (isLoading) {
@@ -96,13 +81,10 @@ const MyCarsPage = () => {
         <title>My Cars - Carvex</title>
       </Helmet>
 
-      {/* Page Banner*/}
+      {/* Page Banner */}
       <div className="relative w-full h-[300px] bg-black bg-cover bg-center bg-mycars">
-        {/* Overlay for readability */}
         <div className="absolute inset-0 bg-black opacity-50"></div>
-
-        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white p-6">
-          {/* Motivational Heading with Framer Motion */}
+        <div className="relative flex flex-col items-center justify-center h-full text-center text-white p-6">
           <h1 className="font-antonio text-3xl md:text-6xl font-bold mb-4 drop-shadow-lg uppercase">
             My Cars
           </h1>
@@ -119,18 +101,6 @@ const MyCarsPage = () => {
           </div>
         ) : (
           <div className="max-w-5xl mx-auto">
-            <div className="flex justify-end mb-4">
-              <select
-                value={sortOption}
-                onChange={(e) => handleSort(e.target.value)}
-                className="select select-sm rounded-full select-bordered bg-base-200"
-              >
-                <option value="dateNewest">Date Added (Newest First)</option>
-                <option value="dateOldest">Date Added (Oldest First)</option>
-                <option value="priceLowest">Price (Lowest First)</option>
-                <option value="priceHighest">Price (Highest First)</option>
-              </select>
-            </div>
             <div className="bg-base-300 rounded-3xl overflow-hidden">
               <table className="table w-full">
                 <thead className="bg-base-200">
@@ -147,12 +117,8 @@ const MyCarsPage = () => {
                   {cars.map((car) => (
                     <tr key={car._id}>
                       <td>{car.carModel}</td>
-                      <td className="hidden lg:table-cell">
-                        ${car.dailyRentalPrice}
-                      </td>
-                      <td className="hidden lg:table-cell">
-                        {car.bookingCount}
-                      </td>
+                      <td className="hidden lg:table-cell">${car.dailyRentalPrice}</td>
+                      <td className="hidden lg:table-cell">{car.bookingCount}</td>
                       <td>
                         {car.availability ? (
                           <span className="badge badge-success">Available</span>
@@ -172,7 +138,10 @@ const MyCarsPage = () => {
                         </button>
                         <button
                           className="btn btn-sm btn-accent"
-                          onClick={() => handleDelete(car._id)}
+                          onClick={() => {
+                            setCarToDelete(car);
+                            setIsDeleteModalOpen(true);
+                          }}
                         >
                           Delete
                         </button>
@@ -199,8 +168,35 @@ const MyCarsPage = () => {
           </div>
         )}
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {isDeleteModalOpen && carToDelete && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-base-100 p-6 rounded-3xl text-center">
+            <h3 className="text-2xl font-bold mb-4">Delete Car</h3>
+            <p>
+              Are you sure you want to delete <strong>{carToDelete.carModel}</strong>?
+            </p>
+            <div className="mt-4 flex justify-center gap-4">
+              <button
+                onClick={() => setIsDeleteModalOpen(false)}
+                className="btn btn-accent btn-sm"
+              >
+                Cancel
+              </button>
+              <button
+                className="btn btn-danger btn-sm"
+                onClick={handleDelete}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 export default MyCarsPage;
+
