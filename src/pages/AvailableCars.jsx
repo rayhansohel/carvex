@@ -65,7 +65,7 @@ const AvailableCars = () => {
   return (
     <div>
       <Helmet>
-        <title>Available Cars - Carvex</title>
+        <title>All Cars - Carvex</title>
       </Helmet>
       {/* Page Banner */}
       <div className="relative w-full h-[300px] bg-black bg-cover bg-center bg-availablecar">
@@ -74,7 +74,7 @@ const AvailableCars = () => {
 
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white p-6">
           <h1 className="font-antonio text-3xl md:text-6xl font-bold mb-4 drop-shadow-lg uppercase">
-            Available Cars
+            All Cars
           </h1>
         </div>
       </div>

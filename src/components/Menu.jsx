@@ -20,14 +20,14 @@ const Menu = () => {
       </NavLink>
 
       <NavLink
-        to="/available-cars"
+        to="/all-cars"
         className={({ isActive }) =>
           `btn btn-sm w-full bg-transparent border-none shadow-none whitespace-nowrap  ${
             isActive ? "text-[#ff0055]" : "transition"
           }`
         }
       >
-        Available Cars
+        All Cars
       </NavLink>
 
       {/* Conditional Menu Items */}

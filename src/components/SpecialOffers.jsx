@@ -8,7 +8,7 @@ const SpecialOffers = () => {
       description:
         "Plan your weekend getaway now! Enjoy a special discount on all car rentals this weekend.",
       image: "https://i.ibb.co.com/DRjTbwG/1920.jpg",
-      buttonText: "Learn More",
+      buttonText: "Select Car",
     },
     {
       id: 2,
@@ -16,7 +16,7 @@ const SpecialOffers = () => {
       description:
         "Experience the ultimate comfort and style this holiday season with our luxury cars.",
       image: "https://i.ibb.co.com/2KCLs97/Back-red-background-audi.jpg",
-      buttonText: "Book Now",
+      buttonText: "Select Car",
     },
   ];
 
@@ -46,7 +46,7 @@ const SpecialOffers = () => {
                 <h3 className="text-xl font-semibold mb-3">{offer.title}</h3>
                 <p className="text-primary/70 mb-4">{offer.description}</p>
                 <Link
-                  to="/available-cars"
+                  to="/all-cars"
                   className="btn btn-primary btn-sm self-start"
                 >
                   {offer.buttonText}

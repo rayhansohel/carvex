@@ -40,10 +40,10 @@ const Banner = () => {
           transition={{ duration: 1, delay: 0.8 }}
         >
           <Link
-            to="/available-cars"
+            to="/all-cars"
             className="btn btn-sm btn-accent mt-4"
           >
-            Explore Cars
+            Book Your Car
           </Link>
         </motion.div>
       </div>

@@ -26,7 +26,7 @@ const Routes = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/available-cars",
+        path: "/all-cars",
         element: <AvailableCars />,
       },
       {
